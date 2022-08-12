@@ -1,15 +1,14 @@
-
 import Layout from "../templates/Layout.js"
 import Header from "../templates/Header.js";
 import React from "react";
 
-function Main() {
+function BootPage() {
   return ( 
   <Layout>
-    <Header/>21313
+    <Header/>
   </Layout>);
 
 
 }
 
-export default Main;
+export default BootPage;
