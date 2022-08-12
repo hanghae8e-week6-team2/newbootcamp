@@ -6,7 +6,7 @@ import React from "react";
 function Main() {
   return ( 
   <Layout>
-    <Header/>21313
+    <Header/>
   </Layout>);
 
 
