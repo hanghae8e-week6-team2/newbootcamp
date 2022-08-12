@@ -122,7 +122,7 @@ const Form = styled.form`
   border: 1px solid gainsboro;
 `;
 const P = styled.p`
-display:flex
+display:flex;
   margin: 5px;
   padding: 3px;
   width: 30rem;
