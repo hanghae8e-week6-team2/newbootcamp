@@ -1,12 +1,6 @@
-import "./App.css";
-import LoginPage from "./components/pages/LoginPage";
-
+import Router from "./shared/router";
 function App() {
-  return (
-    <div>
-      <LoginPage></LoginPage>
-    </div>
-  );
+  return <Router />;
 }
 
 export default App;
