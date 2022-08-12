@@ -9,8 +9,7 @@ function Layout({children}) {
 export default Layout;
 
 const StLayout = styled.div`
-border: 1px solid black;
-margin : 20px;
+/* border: 1px solid black; */
 max-width:1920px;
 min-width:1200px;
 height:820px;`
