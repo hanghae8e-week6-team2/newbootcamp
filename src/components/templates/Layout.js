@@ -10,6 +10,6 @@ export default Layout;
 
 const StLayout = styled.div`
 /* border: 1px solid black; */
-max-width:1920px;
-min-width:1200px;
+max-width:12000px;
+min-width:500px;
 height:820px;`
