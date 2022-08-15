@@ -13,10 +13,7 @@ const initialState = {
 //todo islogin을 true로 만들고  토큰을 저장하기
 export const loginDb = createAsyncThunk("post/loginDb", async (loginDb) => {
   try {
-    const response = await axios.post(
-      `http://localhost:3001/user/login`,
-      loginDb
-    );
+    const response = await axios.post(`http://localhost:3001/user`, loginDb);
     return response.data;
   } catch (error) {
     return error.message;

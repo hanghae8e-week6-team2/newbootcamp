@@ -10,7 +10,10 @@ const initialState = {
 //! post 회원정보 전송
 export const addJoin = createAsyncThunk("post/addPost", async (joinData) => {
   try {
-    const response = await axios.post(`http://localhost:3001/join`, joinData);
+    const response = await axios.post(
+      `http://54.180.95.84/api/user/signup`,
+      joinData
+    );
     return response.data;
   } catch (error) {
     return error.message;
