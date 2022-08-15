@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function Main() {
   const dispatch = useDispatch();
   const bootList = useSelector((state)=> state.detailSlice);
-  console.log(bootList);
+  console.log(bootList.bootcampId);
   
   useEffect(
     ()=>{
@@ -26,7 +26,7 @@ function Main() {
     
     <Header/>
     {
-      [...bootList].map((boot)=>{
+      bootList.map((boot)=>{
        return(
         <CardArea>
         <Card style={{ width: '18rem' }} key={boot.bootcampId}>

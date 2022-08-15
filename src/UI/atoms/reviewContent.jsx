@@ -65,7 +65,7 @@ const ReviewBody = styled.div`
 
 const ReviewMain = styled.div `
   width :80%;
-  height:42%;
+  height:30%;
  
   display:block;
   margin-left:auto;

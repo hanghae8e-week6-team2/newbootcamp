@@ -10,7 +10,7 @@ import {getBoot} from "../../redux/modules/DetailSlice";
 
 import {useParams} from "react-router-dom";
 
-function BootPage() {
+function DetailPage() {
 
     const dispatch = useDispatch();
     const bootList = useSelector((state) => state.detailSlice);
@@ -19,6 +19,7 @@ function BootPage() {
     
 
     const {id} = useParams();
+    console.log(id);
 
     useEffect(() => {
         dispatch(getBoot());
@@ -41,10 +42,10 @@ function BootPage() {
                 })
             }
 
-            <ReplyContent/>
+            <ReplyContent />
         </Layout>
     );
 
 }
 
-export default BootPage;
+export default DetailPage;
