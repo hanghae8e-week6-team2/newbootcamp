@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import style from "./style.css";
@@ -8,11 +8,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { addJoin } from "../../redux/modules/JoinSlice";
 
 const JoinPage = () => {
-  //! 서버 데이터 가져오기
   const navigate = useNavigate();
+  const nameref = useRef();
+  useEffect(() => {
+    nameref.current.focus();
+  }, []);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.joinSlice.joinData);
-  useEffect(() => {}, []);
+  //const data = useSelector((state) => state.joinSlice.joinData);
+
   //!초기값 생성
   const initialState = {
     id: "",
@@ -62,15 +65,15 @@ const JoinPage = () => {
       <Header>signup</Header>
       <Form>
         <P>저희 사이트는 실명제로 운영되고 있습니다😄</P>
-        <JoinBox>
-          <IdInput
-            required
-            name="id"
-            value={id}
-            onChange={onChange}
-            placeholder="아이디를 입력하세요"
-          />
-        </JoinBox>
+
+        <Input
+          required
+          name="id"
+          value={id}
+          ref={nameref}
+          onChange={onChange}
+          placeholder="아이디를 입력하세요"
+        />
 
         <Input
           required
@@ -166,15 +169,7 @@ const Input = styled.input`
   border-radius: 10px;
   margin: 10px 0px 10px 0px;
 `;
-const IdInput = styled.input`
-  margin: 5px;
-  padding: 3px;
-  border: 1px solid gainsboro;
-  width: 20rem;
-  height: 5rem;
-  border-radius: 10px;
-  margin: 10px 0px 10px 0px;
-`;
+
 const AlertBox = styled.div`
   margin: 5px;
   padding: 3px;
@@ -183,17 +178,6 @@ const AlertBox = styled.div`
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
   color: red;
-`;
-const JoinBox = styled.div`
-  margin: 5px;
-  padding: 3px;
-  width: 30rem;
-  height: 5rem;
-  border-radius: 10px;
-  margin: 10px 0px 10px 0px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
 `;
 
 const LogLabel = styled.label``;
