@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getCookie, setCookie } from "../../api/cookie";
 
 const initialState = {
   loading: false,
@@ -8,19 +9,47 @@ const initialState = {
   token: "",
   error: "",
 };
-let loginToken = "";
+
 //! 로그인,  아이디랑 비밀번호 보내기
-//todo islogin을 true로 만들고  토큰을 저장하기
 export const loginDb = createAsyncThunk("post/loginDb", async (loginDb) => {
   try {
-    const response = await axios.post(`http://localhost:3001/join`, loginDb);
-    loginToken = response.headers;
-    console.log(loginToken);
-    return response.data;
+    const response = await axios.post(
+      `http://54.180.95.84/api/user/login`,
+      loginDb
+    );
+    const accessToken = response.data.token;
+    setCookie("is_login", `${accessToken}`);
+    console.log(response);
+    return response.data.token;
+
+    //todo 에러처리를 어떻게 할건지 생각하기
+    //todo 콘솔에 에러메시지가 떠도 되는지 .
   } catch (error) {
+    alert("잘못된 아이디 또는 비밀번호 입니다.");
     return error.message;
   }
 });
+
+export const test = createAsyncThunk("get/test", async (loginDb) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `http://54.180.95.84/api/post/createPost`,
+      headers: {
+        authorization: `Bearer ${getCookie("is_login")}`,
+      },
+    });
+    console.log(response);
+    return response.data;
+
+    //todo 에러처리를 어떻게 할건지 생각하기
+    //todo 콘솔에 에러메시지가 떠도 되는지 .
+  } catch (error) {
+    alert("잘못된 아이디 또는 비밀번호 입니다.");
+    return error.message;
+  }
+});
+
 const loginSlice = createSlice({
   name: "loginData",
   initialState,
@@ -36,7 +65,7 @@ const loginSlice = createSlice({
       state.loginDb = action.payload;
       state.isLogin = true;
       //state에 토큰저장
-      state.token = loginToken;
+      state.token = "";
       //todo response.headers.authorization
       state.error = "";
     });
