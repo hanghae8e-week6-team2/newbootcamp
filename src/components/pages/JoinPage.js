@@ -1,83 +1,106 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import style from "./style.css";
-import useInputs from "../../hooks/useInput";
+import { useNavigate } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
-import { fetchJoin, addJoin } from "../../redux/modules/JoinSlice";
+import { addJoin } from "../../redux/modules/JoinSlice";
 
 const JoinPage = () => {
-  const data = useSelector((state) => state.joinSlice.joinData);
-  console.log(data);
+  //! 서버 데이터 가져오기
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [{ id, password, confirmPassword, name }, onChange, reset, toggle] =
-    useInputs({
-      id: "",
-      password: "",
-      confirmPassword: "",
-      name: "",
-    });
-  let joinData = { id, password, confirmPassword, name };
-  console.log(joinData);
-  useEffect(() => {
-    dispatch(fetchJoin());
-  }, []);
-
-  const onClick = (e) => {
-    // e.preventDefault();
-    dispatch(addJoin(joinData));
-    reset();
+  const data = useSelector((state) => state.joinSlice.joinData);
+  useEffect(() => {}, []);
+  //!초기값 생성
+  const initialState = {
+    id: "",
+    password: "",
+    confirmPassword: "",
+    userName: "",
   };
+  const [joinToggle, setJoinToggle] = useState(true);
+  const [form, setForm] = useState(initialState);
+  const [alertBox, setAlertBox] = useState("");
+
+  //! 조건을 순서대로 통과해야 버튼이 활성화
+  const onChange = (e) => {
+    const REGID = /^[a-zA-Z][0-9a-zA-Z]{3,9}$/;
+    const REGPW =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
+    const { name, value } = e.target;
+    setForm((form) => ({ ...form, [name]: value }));
+    if (id === "" || !REGID.test(id)) {
+      setAlertBox("아이디는 한글,영문 포함 4-10자입니다");
+    } else if (password === "" || !REGPW.test(password)) {
+      setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
+    } else if (confirmPassword === "" || confirmPassword !== password) {
+      setAlertBox("비밀번호가 일치하지 않습니다");
+    } else if (userName === "" || userName.length > 7) {
+      setAlertBox("이름을 확인해주세요");
+    } else {
+      //버튼 활성화 토글
+      setJoinToggle(false);
+    }
+  };
+  const { id, password, confirmPassword, userName } = form;
+  const joinData = { id, password, confirmPassword, name: userName };
+
+  //! 회
+  const onClick = () => {
+    dispatch(addJoin(joinData));
+    setForm(initialState);
+    alert("가입해주셔서 감사합니다.");
+    navigate("/user/login");
+  };
+
+  //todo 포커스 red처리
 
   return (
     <LoginBox>
-      <Header>회원가입 하기</Header>
+      <Header>signup</Header>
       <Form>
         <P>저희 사이트는 실명제로 운영되고 있습니다😄</P>
         <JoinBox>
-          {/* // <label>아이디</label> */}
           <IdInput
+            required
             name="id"
             value={id}
             onChange={onChange}
             placeholder="아이디를 입력하세요"
           />
-
-          <Button
-            variant="outline-dark"
-            style={{
-              width: "6rem",
-              height: "3rem",
-              margin: "10px ",
-            }}
-          >
-            중복확인
-          </Button>
         </JoinBox>
 
-        {/* <label>비밀번호</label> */}
         <Input
+          required
           name="password"
           value={password}
           onChange={onChange}
+          type="password"
           placeholder="비밀번호를 입력하세요 "
         />
         <Input
+          required
           name="confirmPassword"
           value={confirmPassword}
           onChange={onChange}
+          type="password"
           placeholder="비밀번호 확인"
         />
         <Input
-          name="name"
-          value={name}
+          required
+          name="userName"
+          value={userName}
           onChange={onChange}
           placeholder="이름을 입력하세요"
+          maxLength="7"
         />
-        <AlertBox>영문, 숫자, 특수문자의 조합으로 6~20자 입니다</AlertBox>
+        <AlertBox>{alertBox}</AlertBox>
         <Button
           onClick={onClick}
           variant="dark"
+          disabled={joinToggle}
           style={{
             width: "10rem",
             height: "3rem",
@@ -111,7 +134,7 @@ const Header = styled.h1`
   justify-content: center;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
   width: 40rem;
@@ -122,7 +145,7 @@ const Form = styled.form`
   border: 1px solid gainsboro;
 `;
 const P = styled.p`
-display:flex;
+  display: flex;
   margin: 5px;
   padding: 3px;
   width: 30rem;
