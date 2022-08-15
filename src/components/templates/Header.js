@@ -7,10 +7,10 @@ function Header() {
   return (
     <Navbar bg="white" variant="white">
     <Container>
-      <Navbar.Brand href="#home">BootCamp</Navbar.Brand>
+      <Navbar.Brand href="/">BootCamp</Navbar.Brand>
       <Nav className="me-auto">
        
-        <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{}}>
+        <NavDropdown title="Dropdown" id="basic-nav-dropdown" >
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
