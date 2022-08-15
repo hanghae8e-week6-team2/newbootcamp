@@ -1,10 +1,16 @@
 //BootPage의 review component 
 import styled from "styled-components";
 import Table from 'react-bootstrap/Table';
-function reviewContent() {
+
+
+
+function reviewContent({data}) {
+   
+  
+
  return(
     <ReviewMain>
-      <ReviewTitle>
+       <ReviewTitle>
          <h1>부트캠프 소개</h1>
       </ReviewTitle>
     <ReviewBody>
@@ -12,33 +18,37 @@ function reviewContent() {
          <tbody>
          <tr>
          <td>부트캠프명</td>
-         <td>항해99 8기</td>
+         <td>{data.bootcampName}</td>
 
          </tr>
          <tr>
          <td>부트캠프 운영회사</td>
-         <td>스파르타코딩클럽</td>
+         <td>{data.bootcampCompany}</td>
 
          </tr>
          <tr>
          <td>부트캠프 기간</td>
-         <td colSpan={2}>99일</td>
+         <td colSpan={2}>{data.totalWeeks}</td>
          </tr>
-         <tr>
-         <td>부트캠프 비용</td>
-         <td >선결재시 400만원 후불시 500만원</td>
-         </tr>
+        
          <tr>
          <td>온&오프라인</td>
-         <td >온라인</td>
+         <td >{data.onoffLine}</td>
          </tr>
          <tr>
          <td>포지션</td>
-         <td>프론트엔드</td>
+         <td>{data.position}</td>
+         </tr>
+         <tr>
+         <td>항해99에대한 설명</td>
+         <td>{data.describe}</td>
          </tr>
          </tbody>
+     
+        
       </Table>
-    </ReviewBody>
+      
+    </ReviewBody> 
   </ReviewMain>
  )
 }

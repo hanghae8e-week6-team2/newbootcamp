@@ -5,7 +5,6 @@ import "./redux/configStore/Store";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import Store from "./redux/configStore/Store";
-
 import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

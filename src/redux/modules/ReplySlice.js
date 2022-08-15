@@ -20,9 +20,9 @@ export const getReply = createAsyncThunk("GET_REPLY",async()=>{
 
 
 export const replySlice = createSlice({
-    name: "REPLY",
-    initialState:[],
-    reducers : {},
+    name: "REPLY", //state 이름
+    initialState, //초기값은 무조건 배열형태로 줍시다
+    reducers : {}, //
     extraReducers: {
        [getReply.fulfilled]:(state,{payload})=>[...payload],
      },
