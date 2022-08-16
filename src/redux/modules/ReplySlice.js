@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-export const getReply = createAsyncThunk("GET_REPLY",async()=>{
+export const getReply = createAsyncThunk("GET_REPLY",async(bootcampId)=>{
     try{
         const response = await axios.get(`http://localhost:8001/comment`);
         return response.data;
@@ -16,10 +16,10 @@ export const getReply = createAsyncThunk("GET_REPLY",async()=>{
   
 })
 
-export const addReply = createAsyncThunk("ADD_REPLY", async(newList,id)=>{
+export const addReply = createAsyncThunk("ADD_REPLY", async(newList)=>{
     try{
-    console.log(id);
-    const response = await axios.post(`54.180.95.84/api/post/${[id]}`,newList);
+    console.log(newList);
+    const response = await axios.post(`http://localhost:8001/comment`,newList);
     console.log(response);
     return response.data;
     
@@ -28,20 +28,20 @@ export const addReply = createAsyncThunk("ADD_REPLY", async(newList,id)=>{
 }
 })
 
-export const deleteReply = createAsyncThunk("DELETE_REPLY", async(userIdx)=>{
+export const deleteReply = createAsyncThunk("DELETE_REPLY", async(postId)=>{
     try{
-    const response = await axios.delete(`http://localhost:8001/comment/${userIdx}`);
+    const response = await axios.delete(`http://localhost:8001/comment/${postId}`);
     return response.data;
 }catch(error){
     return error.message;
 }
 })
 
-export const updateReply = createAsyncThunk("UPDATE_REPLY", async({userIdx,userId,content,rating,crateAt})=>{
+export const updateReply = createAsyncThunk("UPDATE_REPLY", async({bootId,bootData})=>{
     try{
-    const response = await axios.put(`http://localhost:8001/comment/${userIdx}`,
-   { userId: userId,  content: content, rating: rating, createAt: crateAt });
-    return response.data;
+        console.log(bootId)
+    const response = await axios.put(`http://localhost:8001/comment/${bootId}`);
+    return {bootId,bootData}
 }catch(error){
         return error.message;
 }
@@ -59,11 +59,12 @@ export const replySlice = createSlice({
        [addReply.fulfilled]: (state,{payload})=>[...state,payload],
        [deleteReply.fulfilled]: (state,{payload})=>state.filter((reply)=>reply.userIdx !== payload),
        [updateReply.fulfilled]: (state,{payload})=>{
-        return state.map((reply)=>{
-            if(reply.userIdx === payload.userIdx){
-                return{...reply,userId: payload.userId,  content: payload.content, rating: payload.rating, createAt: payload.crateAt}
+        state = state.map((reply)=>{
+            if(reply.id === Number(payload.id)){
+                
+                return  payload.bootData;
             }else{
-                return reply
+                return reply;
             }
         })
        }

@@ -6,12 +6,13 @@ import Header from "../templates/Header.js";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Main() {
   const dispatch = useDispatch();
-  const bootList = useSelector((state)=> state.detailSlice);
-  console.log(bootList)  
+  const bootList = useSelector((state)=> state.mainSlice)
+  console.log(bootList);
+ 
   useEffect(
     ()=>{
       dispatch(getBoot());  
