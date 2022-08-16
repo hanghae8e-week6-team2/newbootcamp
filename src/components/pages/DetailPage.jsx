@@ -1,8 +1,7 @@
 import Layout from "../templates/Layout.js";
 import Header from "../templates/Header.js";
-import reviewContent from "../../ui/atoms/reviewContent";
-import replyContent from "../../ui/atoms/replyContent";
-
+import ReviewContent from "../../UI/atoms/reviewContent";
+import ReplyContent from "../../UI/atoms/replyContent.jsx";
 import { Nav } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +9,16 @@ import { getBoot } from "../../redux/modules/DetailSlice";
 
 import { useParams } from "react-router-dom";
 
-function BootPage() {
+function DetailPage() {
   const dispatch = useDispatch();
   const bootList = useSelector((state) => state.detailSlice);
-  console.log(bootList);
+
+  useEffect(() => {
+    dispatch(getBoot());
+  }, []);
 
   const { id } = useParams();
+  console.log(typeof id);
 
   useEffect(() => {
     dispatch(getBoot());
@@ -27,21 +30,15 @@ function BootPage() {
       {bootList.map((data) => {
         if (data.bootcampId === Number(id)) {
           return (
-            <>
-              {" "}
-              <reviewContent
-                key={data.bootcampId}
-                data={data}
-                id={data.bootcampId}
-              />{" "}
-            </>
+            <div key={data.bootcampId}>
+              <ReviewContent data={data} id={data.bootcampId} />
+              <ReplyContent id={id} />
+            </div>
           );
         }
       })}
-
-      <replyContent />
     </Layout>
   );
 }
 
-export default BootPage;
+export default DetailPage;
