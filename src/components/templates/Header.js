@@ -6,11 +6,9 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { test } from "../../redux/modules/LoginSlice";
-import { removeCookie } from "../../api/cookie";
+import { removeCookie, getCookie } from "../../api/cookie";
 
 function Header() {
-  const location = useLocation();
-  console.log(location);
   const userId = useSelector((state) => state.loginSlice.token);
   const [islogin, setIsLogin] = useState(userId);
   console.log(userId);
@@ -18,7 +16,9 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(test(navigate));
+    if (getCookie("is_login")) {
+      dispatch(test(navigate));
+    }
   }, [islogin]);
   return (
     <Navbar bg="white" variant="white">
@@ -36,7 +36,7 @@ function Header() {
               Separated link
             </NavDropdown.Item>
           </NavDropdown>
-          {userId === undefined ? (
+          {userId === undefined || userId === "" ? (
             <button onClick={() => navigate("/user/login")}>로그인</button>
           ) : (
             <div>
