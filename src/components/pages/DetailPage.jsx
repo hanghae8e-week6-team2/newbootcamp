@@ -1,7 +1,7 @@
 import Layout from "../templates/Layout.js";
 import Header from "../templates/Header.js";
-import ReviewContent from "../../UI/atoms/reviewContent";
-import ReplyContent from "../../UI/atoms/replyContent.jsx";
+import ReviewContent from "../../ui/atoms/reviewContent";
+import ReplyContent from "../../ui/atoms/replyContent";
 import { Nav } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

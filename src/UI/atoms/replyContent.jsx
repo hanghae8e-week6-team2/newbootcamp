@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getReply, addReply } from "../../redux/modules/ReplySlice";
 import ReplyItem from "./replyItem";
 import styled, { ThemeProvider } from "styled-components";
@@ -8,18 +8,18 @@ import Rating from "./rating";
 import { useParams } from "react-router-dom";
 
 function ReplyContent() {
-  const date  = new Date();
+  const date = new Date();
 
-  const {id} = useParams();
+  const { id } = useParams();
   console.log(id);
-  
 
   const [userValue, setUserValue] = useState("1234");
   const [commentValue, setCommentValue] = useState("");
-  const [createAt, setCreateAt] =useState(date.toString());
+  const [createAt, setCreateAt] = useState(date.toString());
   //사용자가 입력한 값을 저장하기 위한 state
-  const replyList = useSelector((state) => state.replySlice);
-  
+  const replyList = useSelector((state) => state);
+  console.log(replyList);
+
   //리덕스 스토어에서 값을 받아오기 위한 hook
 
   const dispatch = useDispatch();
@@ -27,31 +27,27 @@ function ReplyContent() {
 
   useEffect(() => {
     dispatch(getReply());
-
   }, []);
-  //useEffect는  useEffect가 속한 컴포넌트가 화면에 렌더링 될때 실행됩니다.
-  //이 컴포넌트에서 화면이 렌더링된다는뜻은
-  //사용자가 input에 값을 입력할때 말합니다.
 
-  // [] 의존성 배열 입니다  [] 안에 state 함수를 넣으면 state 값이 변경이될때 실행됩니다.
-  //[] 빈값으로 두면 useeffect 안의 함수가 한번만 실행됩니다.
-  
   const ReplyAdd = (e) => {
     e.preventDefault();
 
     if (userValue) {
-      const newList = { userIdx: replyList.userIdx,content: commentValue, rating:null, createAt: createAt };
-     //중요포인트 한객체안에 각각의 input값 2개 동시 저장
-      dispatch(addReply({content:"4567",rating:"3"},Number(id)));
+      const newList = {
+        userIdx: replyList.userIdx,
+        content: commentValue,
+        rating: null,
+        createAt: createAt,
+      };
+      //중요포인트 한객체안에 각각의 input값 2개 동시 저장
+      dispatch(addReply({ content: "4567", rating: "3" }, Number(id)));
       setUserValue("");
       setCommentValue("");
       setCreateAt("");
-      
     } else {
       alert("입력해주세요");
     }
   };
-
 
   return (
     <Alcoform>
@@ -90,11 +86,11 @@ function ReplyContent() {
           <Button color="green" type="submit" style={{ margin: "0 0 0 8px" }}>
             추가
           </Button>
-          <Rating/>
+          <Rating />
         </ThemeProvider>
       </form>
-       <ul>
-         {replyList.map((data) => (
+      <ul>
+        {replyList.map((data) => (
           <ReplyItem
             key={data.bootcampId}
             userId={data.userId}
@@ -103,8 +99,8 @@ function ReplyContent() {
             time={data.createAt}
             rating={data.rating}
           ></ReplyItem>
-        ))} 
-      </ul> 
+        ))}
+      </ul>
     </Alcoform>
   ); //return
 } //ReplyList

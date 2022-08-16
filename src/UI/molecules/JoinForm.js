@@ -9,12 +9,10 @@ import { addJoin } from "../../redux/modules/JoinSlice";
 const JoinForm = () => {
   const navigate = useNavigate();
   const nameref = useRef();
-  useEffect(() => {
-    nameref.current.focus();
-  }, []);
+  //useEffect(() => {}, [data]);
   const dispatch = useDispatch();
-  //const data = useSelector((state) => state.joinSlice.joinData);
-
+  const data = useSelector((state) => state.joinSlice.joinData);
+  const [error, setError] = useState(data);
   //!초기값 생성
   const initialState = {
     id: "",
@@ -29,7 +27,7 @@ const JoinForm = () => {
 
   //! 조건을 순서대로 통과해야 버튼이 활성화
   const onChange = (e) => {
-    const REGID = /^(?=.*[a-z0-9])[a-z0-9]{3,9}$/;
+    const REGID = /^(?=.*[a-z0-9])[a-z0-9]{3,10}$/;
     const REGPW =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
     const { name, value } = e.target;
@@ -50,13 +48,10 @@ const JoinForm = () => {
   };
   //form.id, form.password..
   const joinData = { id, password, confirmPassword, name: userName };
-
+  console.log(error);
   //! 회원가입 버튼
   const onClick = () => {
-    dispatch(addJoin(joinData));
-    setForm(initialState);
-    alert("가입해주셔서 감사합니다.");
-    navigate("/user/login");
+    dispatch(addJoin({ navigate, joinData }));
   };
 
   //todo 포커스 red처리

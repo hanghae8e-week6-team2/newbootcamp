@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import style from "../../components/pages/style.css";
@@ -6,31 +6,23 @@ import { loginDb } from "../../redux/modules/LoginSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Star from "../atoms/star";
 import { test } from "../../redux/modules/LoginSlice";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
   const onClick = () => {
     if (id === "" || password === "") {
       alert("아이디와 비밀번호를 모두 입력해주세요");
       return;
-    }
-    try {
-      dispatch(loginDb({ id, password }));
-      navigate("/");
-    } catch (error) {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-      navigate("/user/login");
-
-      console.log("login error", error);
-    } finally {
-      //todo 메인화면으로 이동
+    } else {
+      const loginidpw = { id, password };
+      dispatch(loginDb({ navigate, loginidpw }));
     }
   };
-  //todo 서버로부터 쿠키 받기
 
   return (
     <Box>
@@ -86,7 +78,10 @@ const LoginForm = () => {
           </p>
         </JoinBox>
       </Form>
-      <button onClick={() => dispatch(test())}>눌러보세요</button>
+      <button onClick={() => dispatch(test(navigate))}>눌러보세요</button>
+      //디코드를 해서 아이디만 가져와서 누구누구님 안녕하세요 >? 그리고 로그아웃
+      버튼 만들기 //단 조건문이 필요하다. //원활하게 get요청을 받았을때. -->
+      디코드를 한다. --> 아이디만 꺼내서 보여준다. / 로그아웃토글을 연다.
     </Box>
   );
 };

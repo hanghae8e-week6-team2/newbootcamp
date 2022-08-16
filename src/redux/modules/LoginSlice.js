@@ -1,55 +1,56 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCookie, setCookie } from "../../api/cookie";
+import api from "../../api/api";
+import jwt_decode from "jwt-decode";
 
 const initialState = {
   loading: false,
   loginDb: [],
-  isLogin: false,
   token: "",
   error: "",
 };
 
 //! 로그인,  아이디랑 비밀번호 보내기
-export const loginDb = createAsyncThunk("post/loginDb", async (loginDb) => {
-  try {
-    const response = await axios.post(
-      `http://54.180.95.84/api/user/login`,
-      loginDb
-    );
-    const accessToken = response.data.token;
-    setCookie("is_login", `${accessToken}`);
-    console.log(response);
-    return response.data.token;
-
-    //todo 에러처리를 어떻게 할건지 생각하기
-    //todo 콘솔에 에러메시지가 떠도 되는지 .
-  } catch (error) {
-    console.log(error.code);
-    console.log(error.message);
-    //alert("잘못된 아이디 또는 비밀번호 입니다.");
-    return error;
+export const loginDb = createAsyncThunk(
+  "post/loginDb",
+  async ({ navigate, loginidpw }) => {
+    try {
+      const response = await axios.post(
+        `http://54.180.95.84/api/user/login`,
+        loginidpw
+      );
+      const accessToken = response.data.token;
+      console.log(accessToken);
+      setCookie("is_login", `${accessToken}`);
+      alert("환영합니다.");
+      navigate("/");
+      return response.data.token;
+    } catch (error) {
+      alert("잘못된 아이디 또는 비밀번호 입니다.");
+      return error.code;
+    }
   }
-});
-//!!!!!!!!테스트 코드 입니다.
-export const test = createAsyncThunk("get/test", async (loginDb) => {
+);
+//!헤더부분 아이디
+export const test = createAsyncThunk("get/test", async (navigate) => {
   try {
-    const response = await axios({
+    const response = await //api("/post/createPost");
+    axios({
       method: "get",
       url: `http://54.180.95.84/api/post/createPost`,
       headers: {
-        //!authorization에 따옴표 안붙여도 되는지
         authorization: `Bearer ${getCookie("is_login")}`,
       },
     });
     console.log(response);
-    return response.data;
-
-    //todo 에러처리를 어떻게 할건지 생각하기
-    //todo 콘솔에 에러메시지가 떠도 되는지 .
+    const loginToken = getCookie("is_login");
+    const decoded = jwt_decode(loginToken);
+    console.log(decoded);
+    return decoded.userId;
   } catch (error) {
-    console.log(error.code, error.message);
-    return error;
+    console.log(error.code, error.status);
+    return error.status;
   }
 });
 
@@ -66,17 +67,19 @@ const loginSlice = createSlice({
       state.loading = false;
       //!굳이 갖고 있을 필요가 있을까?
       state.loginDb = action.payload;
-      state.isLogin = true;
       //state에 토큰저장
-      state.token = "";
-      //todo response.headers.authorization
       state.error = "";
     });
     //!rejected시 처리 어떻게 해야할까
     builder.addCase(loginDb.rejected, (state, action) => {
       state.loading = false;
-      state.joinData = [];
+      state.loginDb = [];
       state.error = action.error.message;
+    });
+    builder.addCase(test.fulfilled, (state, action) => {
+      state.loading = false;
+      state.token = action.payload;
+      state.error = "";
     });
   },
 });

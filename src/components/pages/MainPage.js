@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 function Main() {
   const dispatch = useDispatch();
-<<<<<<< HEAD
   const bootList = useSelector((state) => state.detailSlice);
   console.log(bootList);
 
@@ -49,45 +48,6 @@ function Main() {
       })}
     </Layout>
   );
-=======
-  const bootList = useSelector((state)=> state.detailSlice);
-  console.log(bootList)  
-  useEffect(
-    ()=>{
-      dispatch(getBoot());  
-    },[]
-  )
-   const navigate = useNavigate();
-
-  return ( 
-    
-  <Layout>
-    
-    <Header/>
-    {
-      bootList.map((boot)=>{
-       return(
-        <CardArea key={boot.bootcampId} >
-        <Card  style={{ width: '18rem' }}>
-              <Card.Img variant="top"  />
-              <Card.Body>
-                <Card.Title>{boot.bootcampName}</Card.Title>
-                <Card.Text>
-                  {boot.bootcampCompany}
-                </Card.Text>
-                <Button onClick={()=>{navigate(`/post/${boot.bootcampId}`)}} variant="primary" style={{ width: '16rem' }}>상세보기</Button>
-              </Card.Body>
-        </Card>
-        </CardArea>
-       )
-        
-      })
-    }
-   
-  </Layout>);
-
-
->>>>>>> 2d6e91fc29cc4dfe1f2acb2d3976534b87fa15e1
 }
 
 export default Main;
