@@ -2,14 +2,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState ={
-    post:[],
-    error:"",
-}
-
-export const getReply = createAsyncThunk("GET_REPLY",async()=>{
+export const getBoot = createAsyncThunk("GET_BOOT",async()=>{
     try{
-        const response = await axios.get(`http://localhost:8001/comment`);
+        const response = await axios.get(`http://localhost:8001/post`);
+        console.log(response);
         return response.data;
        
     }catch(error){
@@ -19,12 +15,12 @@ export const getReply = createAsyncThunk("GET_REPLY",async()=>{
 })
 
 
-export const replySlice = createSlice({
-    name: "REPLY",
+export const mainSlice = createSlice({
+    name: "POST",
     initialState:[],
     reducers : {},
     extraReducers: {
-       [getReply.fulfilled]:(state,{payload})=>[...payload],
+       [getBoot.fulfilled]:(state,{payload})=>[...payload],
      },
     
 });
