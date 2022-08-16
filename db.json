@@ -1,37 +1,42 @@
 {
-  "post" : 
-    [ 
-      {
-        "bootcampId":1,
-        "bootcampName":"항해99",
-        "bootcampCompany": "스파르타코딩클럽",
-        "totalWeeks":"16주",
-        "onoffLine":1,
-        "position":3,
-        "describe":"항해 99에 대한 설명"
-      },
-      {
-        "bootcampId":2,
-        "bootcampName":"제로베이스",
-        "bootcampCompany": "패스트캠퍼스",
-        "totalWeeks":"24주",
-        "onoffLine":1,
-        "position":3,
-        "describe":"항해 99에 대한 설명"
-      }
-    ],
-    
-  "comment" : 
-   [{ "bootcampId" : 1,
-       "userId" : 1,
-       "content" : "부트캠프id 1에 대한 댓글",
-       "rating" : 3,
-       "createAt" : "TimeStamp"
+  "post": [
+    {
+      "bootcampId": 1,
+      "bootcampName": "항해99",
+      "bootcampCompany": "스파르타코딩클럽",
+      "totalWeeks": "16주",
+      "price": "500만원",
+      "onoffLine": "1",
+      "position": "3",
+      "describe": "항해 99에 대한 설명"
     },
-    {  "bootcampId" : 2,
-       "userId" : 2,
-       "content" : "부트캠프id 1에 대한 댓글 2",
-       "rating" : 4,
-       "createAt" : "TimeStamp"
-    }]
-  }
+    {
+      "bootcampId": 2,
+      "bootcampName": "제로베이스",
+      "bootcampCompany": "패스트캠퍼스",
+      "totalWeeks": "24주",
+      "price": "1000만원",
+      "onoffLine": 1,
+      "position": 3,
+      "describe": "항해 99에 대한 설명"
+    }
+  ],
+  "comment": [
+    {
+      "bootcampId": 1,
+      "userIdx": 1,
+      "userId": "ckdgus270",
+      "content": "부트캠프id 1에 대한 댓글",
+      "rating": "3",
+      "createAt": "TimeStamp"
+    },
+    {
+      "bootcampId": 2,
+      "userIdx": 2,
+      "userId": "tmdwns270",
+      "content": "부트캠프id 1에 대한 댓글 2",
+      "rating": "4",
+      "createAt": "TimeStamp"
+    }
+  ]
+}

@@ -7,9 +7,9 @@ const initialState ={
     error:"",
 }
 
-export const getReply = createAsyncThunk("GET_REPLY",async()=>{
+export const getBoot = createAsyncThunk("GET_BOOT",async(bootcampId)=>{
     try{
-        const response = await axios.get(`http://localhost:8001/comment`);
+        const response = await axios.get(`54.180.95.84/api/post/:${bootcampId}`);
         return response.data;
        
     }catch(error){
@@ -21,10 +21,10 @@ export const getReply = createAsyncThunk("GET_REPLY",async()=>{
 
 export const replySlice = createSlice({
     name: "REPLY",
-    initialState:[],
+    initialState,
     reducers : {},
     extraReducers: {
-       [getReply.fulfilled]:(state,{payload})=>[...payload],
+       [getBoot.fulfilled]:(state,{payload})=>[...payload],
      },
     
 });

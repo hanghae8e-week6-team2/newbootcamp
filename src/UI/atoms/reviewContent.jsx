@@ -30,6 +30,10 @@ function reviewContent({data}) {
          <td>부트캠프 기간</td>
          <td colSpan={2}>{data.totalWeeks}</td>
          </tr>
+         <tr>
+         <td>가격</td>
+         <td >{data.price}</td>
+         </tr>
         
          <tr>
          <td>온&오프라인</td>
