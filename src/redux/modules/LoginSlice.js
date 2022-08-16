@@ -25,17 +25,20 @@ export const loginDb = createAsyncThunk("post/loginDb", async (loginDb) => {
     //todo 에러처리를 어떻게 할건지 생각하기
     //todo 콘솔에 에러메시지가 떠도 되는지 .
   } catch (error) {
-    alert("잘못된 아이디 또는 비밀번호 입니다.");
-    return error.message;
+    console.log(error.code);
+    console.log(error.message);
+    //alert("잘못된 아이디 또는 비밀번호 입니다.");
+    return error;
   }
 });
-
+//!!!!!!!!테스트 코드 입니다.
 export const test = createAsyncThunk("get/test", async (loginDb) => {
   try {
     const response = await axios({
       method: "get",
       url: `http://54.180.95.84/api/post/createPost`,
       headers: {
+        //!authorization에 따옴표 안붙여도 되는지
         authorization: `Bearer ${getCookie("is_login")}`,
       },
     });
@@ -45,8 +48,8 @@ export const test = createAsyncThunk("get/test", async (loginDb) => {
     //todo 에러처리를 어떻게 할건지 생각하기
     //todo 콘솔에 에러메시지가 떠도 되는지 .
   } catch (error) {
-    alert("잘못된 아이디 또는 비밀번호 입니다.");
-    return error.message;
+    console.log(error.code, error.message);
+    return error;
   }
 });
 

@@ -20,10 +20,11 @@ const LoginForm = () => {
     }
     try {
       dispatch(loginDb({ id, password }));
-      //todo 디스패치로 아이디와 비밀번호 보내기
+      navigate("/");
     } catch (error) {
-      navigate("/user/login");
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+      navigate("/user/login");
+
       console.log("login error", error);
     } finally {
       //todo 메인화면으로 이동
