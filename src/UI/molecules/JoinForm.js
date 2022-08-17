@@ -48,10 +48,18 @@ const JoinForm = () => {
   };
   //form.id, form.password..
   const joinData = { id, password, confirmPassword, name: userName };
-  console.log(error);
   //! 회원가입 버튼
   const onClick = () => {
-    dispatch(addJoin({ navigate, joinData }));
+    if (
+      id == "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      userName === ""
+    ) {
+      alert("내용을 모두 입력해주세요");
+    } else {
+      dispatch(addJoin({ navigate, joinData }));
+    }
   };
 
   //todo 포커스 red처리

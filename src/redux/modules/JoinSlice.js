@@ -21,7 +21,7 @@ export const addJoin = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error.code);
-      alert("이미 가입한 내역이 있습니다.");
+      alert("다시 입력해주세요.");
       return error.code;
     }
   }

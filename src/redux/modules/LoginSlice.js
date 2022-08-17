@@ -32,7 +32,7 @@ export const loginDb = createAsyncThunk(
     }
   }
 );
-//!헤더부분 아이디
+//!헤더부분 로그인확인
 export const test = createAsyncThunk("get/test", async (navigate) => {
   try {
     const response = await //api("/post/createPost");
@@ -65,7 +65,6 @@ const loginSlice = createSlice({
     });
     builder.addCase(loginDb.fulfilled, (state, action) => {
       state.loading = false;
-      //!굳이 갖고 있을 필요가 있을까?
       state.loginDb = action.payload;
       //state에 토큰저장
       state.error = "";

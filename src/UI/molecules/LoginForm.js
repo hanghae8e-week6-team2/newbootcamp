@@ -6,7 +6,6 @@ import { loginDb } from "../../redux/modules/LoginSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { test } from "../../redux/modules/LoginSlice";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ const LoginForm = () => {
             <Button
               variant="light"
               style={{
-                width: "10rem",
+                width: "8rem",
                 height: "3rem",
                 marginTop: "10px",
                 marginBottom: "10px",
@@ -78,10 +77,6 @@ const LoginForm = () => {
           </p>
         </JoinBox>
       </Form>
-      <button onClick={() => dispatch(test(navigate))}>눌러보세요</button>
-      //디코드를 해서 아이디만 가져와서 누구누구님 안녕하세요 >? 그리고 로그아웃
-      버튼 만들기 //단 조건문이 필요하다. //원활하게 get요청을 받았을때. -->
-      디코드를 한다. --> 아이디만 꺼내서 보여준다. / 로그아웃토글을 연다.
     </Box>
   );
 };
