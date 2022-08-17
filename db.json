@@ -1,6 +1,7 @@
 {
   "post": [
     {
+      "id": 1,
       "bootcampId": 1,
       "bootcampName": "항해99",
       "bootcampCompany": "스파르타코딩클럽",
@@ -11,6 +12,7 @@
       "describe": "항해 99에 대한 설명"
     },
     {
+      "id": 2,
       "bootcampId": 2,
       "bootcampName": "제로베이스",
       "bootcampCompany": "패스트캠퍼스",

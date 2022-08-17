@@ -34,9 +34,10 @@ export const updatePost = createAsyncThunk(
         },
         data: editData,
       });
-
+      console.log(editData);
       return { id, editData };
     } catch (error) {
+      console.log(editData);
       return error.message;
     }
   }

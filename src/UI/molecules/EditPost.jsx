@@ -3,12 +3,13 @@ import styled, { ThemeProvider } from "styled-components";
 import Button from "../../UI/atoms/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPosts, updatePost } from "../../redux/modules/AddSlice";
+import { fetchPost } from "../../redux/modules/AddSlice";
 import useInputs from "../../hooks/useInput";
+import { updatePost } from "../../redux/modules/EditSlice";
 
-const EditPost = () => {
+const EditPost = ({ data }) => {
   //!파람스 추가해주기
-  const id = 4;
+  const id = data.bootcampId;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,20 +34,8 @@ const EditPost = () => {
     position: "",
     describe: "",
   };
-  // const post = useSelector((state) => state).postSlice.posts;
-  //const [data] = post.filter((x) => x.bootcampId === id);
-  const [data] = [
-    {
-      bootcampName: "항해99",
-      bootcampCompany: "항해99",
-      totalWeeks: "1주",
-      onoffLine: "1",
-      price: "500만원",
-      position: "3",
-      describe: "설명설명",
-    },
-  ];
-  //console.log(data.bootcampName);
+
+  console.log(data.bootcampName);
   const [form, setForm] = useState(initialState);
 
   //! 여기부터 시작
@@ -64,13 +53,13 @@ const EditPost = () => {
   //! 보낼 데이터
 
   const editData = {
-    bootcampCompany,
     bootcampName,
-    describe,
-    onoffline: form.onoffLine,
-    position: form.position,
-    price,
+    bootcampCompany,
     totalWeeks,
+    onoffLine: form.onoffLine,
+    price,
+    position: form.position,
+    describe,
   };
 
   ///!여기까지
@@ -130,6 +119,7 @@ const EditPost = () => {
   }, [currentClick1]);
 
   const onClick = () => {
+    console.log(editData);
     dispatch(updatePost({ editData, id }));
     setForm(initialState);
     alert("게시글이 수정되었습니다..");

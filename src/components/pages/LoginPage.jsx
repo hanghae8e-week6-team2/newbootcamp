@@ -2,7 +2,7 @@ import React from "react";
 import style from "../../components/pages/style.css";
 import Layout from "../templates/Layout";
 import Header from "../templates/Header";
-import LoginForm from "../../UI/molecules/LoginForm";
+import LoginForm from "../../UI/molecules/LoginForm"
 
 const LoginPage = () => {
   return (

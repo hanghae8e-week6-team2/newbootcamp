@@ -12,9 +12,9 @@ import { useParams } from "react-router-dom";
 function DetailPage() {
   const dispatch = useDispatch();
   const bootList = useSelector((state) => state.detailSlice);
-
+ console.log(bootList)
   useEffect(() => {
-    dispatch(getBoot());
+    dispatch(getBoot(bootList.bootcampId));
   }, []);
 
   const { id } = useParams();

@@ -141,9 +141,10 @@ const AddPage = () => {
 
   const onClick = () => {
     dispatch(addBoot(form));
+    console.log(form);
     setForm(initialState);
     alert("게시글이 등록되었습니다..");
-    // navigate("/");
+    navigate("/");
   };
 
   const onChangeHandler = (e) => {
