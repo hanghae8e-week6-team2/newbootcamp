@@ -8,18 +8,16 @@ import Rating from "./rating";
 import { useParams } from "react-router-dom";
 
 function ReplyContent() {
-  const date = new Date();
-
   const { id } = useParams();
   console.log(id);
 
+  const [clicked, setClicked] = useState(0);
+
   const [userValue, setUserValue] = useState("1234");
   const [commentValue, setCommentValue] = useState("");
-  const [createAt, setCreateAt] = useState(date.toString());
   //사용자가 입력한 값을 저장하기 위한 state
-  const replyList = useSelector((state) => state);
+  const replyList = useSelector((state) => state.replySlice);
   console.log(replyList);
-
   //리덕스 스토어에서 값을 받아오기 위한 hook
 
   const dispatch = useDispatch();
@@ -33,17 +31,11 @@ function ReplyContent() {
     e.preventDefault();
 
     if (userValue) {
-      const newList = {
-        userIdx: replyList.userIdx,
-        content: commentValue,
-        rating: null,
-        createAt: createAt,
-      };
+      const newList = { content: commentValue, rating: clicked };
       //중요포인트 한객체안에 각각의 input값 2개 동시 저장
-      dispatch(addReply({ content: "4567", rating: "3" }, Number(id)));
+      dispatch(addReply(newList));
       setUserValue("");
       setCommentValue("");
-      setCreateAt("");
     } else {
       alert("입력해주세요");
     }
@@ -86,19 +78,12 @@ function ReplyContent() {
           <Button color="green" type="submit" style={{ margin: "0 0 0 8px" }}>
             추가
           </Button>
-          <Rating />
+          <Rating clicked={clicked} setClicked={setClicked} />
         </ThemeProvider>
       </form>
       <ul>
         {replyList.map((data) => (
-          <ReplyItem
-            key={data.bootcampId}
-            userId={data.userId}
-            userIdx={data.userIdx}
-            comment={data.content}
-            time={data.createAt}
-            rating={data.rating}
-          ></ReplyItem>
+          <ReplyItem key={data.id} data={data} bootId={data.id}></ReplyItem>
         ))}
       </ul>
     </Alcoform>

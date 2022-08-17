@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import {FaStar} from 'react-icons/fa';
 
 
-const Score = () => {
+const Score = ({clicked,setClicked}) => {
   const [hovered, setHovered] = useState(null);
-  const [clicked, setClicked] = useState(null);
+   console.log(clicked);
   
   const goToFetch = e => {
     setClicked(e.target.id);

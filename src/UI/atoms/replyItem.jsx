@@ -3,33 +3,43 @@ import React, { useState, useRef } from "react";
 import { updateReply, deleteReply } from "../../redux/modules/ReplySlice";
 import styled, { ThemeProvider } from "styled-components";
 import Button from "./button";
+import {FaStar} from 'react-icons/fa';
 
-function Replyitem({ userIdx,userId, comment,rating}) {
-  const [userUpdate, setUserUpdate] = useState("");
-  const [commentUpdate, setCommentUpdate] = useState("");
+function Replyitem({ data,bootId}) {
+  //text state
+  const [state, setState] = useState(data);
+  const [delValue,setDelValue] = useState(bootId);
+  console.log(typeof bootId);
+  console.log(data.rating)
+
+
  
-
+    console.log(data.rating);
   const dispatch = useDispatch();
   const Clickref = useRef();
 
   const replyDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteReply(userIdx));
+    dispatch(deleteReply(bootId));
   };
 
   const date  = new Date();
   const time = date.toString();
-  const replyUpdate = (e) => {
+
+  //비구조화 할당으로 text값 가져오기
+  const onChangeHandler = (e) => {
+      const { name, value} = e.target;
+      setState({...state,[name]:value})
+      console.log(state.content)
+    
+    } ;
+    const campId = data.id;
+const bootData = {campId ,content : state.content, rating: state.rating}
+  const onSubmitHandler = (e) =>{
     e.preventDefault();
-    if (userUpdate) {
-      dispatch(
-        updateReply({userIdx, userId: userUpdate, content: commentUpdate, rating:null, createAt:time  })
-      );
-       setUserUpdate("");
-      setCommentUpdate("");
-      Clickref.current.style.display = "none";
-    } else alert("다시 수정해주세요");
-  };
+    dispatch(updateReply({bootId, bootData}));
+    Clickref.current.style.display = "none";
+  }
 
   const ClickEvent = () => {
     Clickref.current.style.display = "block";
@@ -39,8 +49,25 @@ function Replyitem({ userIdx,userId, comment,rating}) {
   return (
     <Reply>
       <ReplyWrap>
-        <UserArea>{userId}</UserArea>
-        <CommentArea>{comment}</CommentArea>
+        <UserArea>{data.id}</UserArea>
+        <CommentArea>{data.content}</CommentArea>
+
+        <ReviewBox>
+
+          {/* 평점 로직 */}
+         <StarContainer>
+        {[1, 2, 3, 4, 5].map(el => (
+          <FaStar
+            className={`fas fa-star ${
+            data.rating >= el && 'yellowStar'
+            }`}
+            key={el}
+
+          />
+        ))}
+      </StarContainer>
+
+      </ReviewBox>
         <ThemeProvider
           theme={{
             palette: {
@@ -66,13 +93,13 @@ function Replyitem({ userIdx,userId, comment,rating}) {
 
       <UP_DEL ref={Clickref}>
         <form
-        onSubmit={replyUpdate}
+        onSubmit={onSubmitHandler}
          >
-          <Label>닉네임수정</Label>
+          <Label>닉네임</Label>
           <NicInput
             type="text"
-            onChange={(e) => setUserUpdate(e.target.value)}
-            value={userId}
+            onChange={onChangeHandler}
+            value={state.id}
             id="user"
             ref={Clickref}
           />
@@ -80,12 +107,15 @@ function Replyitem({ userIdx,userId, comment,rating}) {
           <br></br>
 
           <Label>코멘트수정</Label>
-          <CommentInput
-            type="text"
-            onChange={(e) => setCommentUpdate(e.target.value)}
-            value={commentUpdate}
-            id="comment"
-          />
+          <CommentInput>
+            <input
+              type="text"
+              name="content"
+              onChange={onChangeHandler}
+              value={state.content}
+            />
+          </CommentInput>
+     
           <ThemeProvider
             theme={{
               palette: {
@@ -172,11 +202,38 @@ const NicInput = styled.input`
   color: black;
 `;
 
-const CommentInput = styled.input`
+const CommentInput = styled.div`
   width: 350px;
   height: 100px;
   margin-top: 20px;
   border-radius: 20px;
   font-size: 14px;
   color: black;
+`;
+
+
+const StarContainer = styled.div`
+  text-align: center;
+  border: none;
+  background-color: white;
+`;
+
+
+const ReviewBox = styled.div`
+
+  color: #999;
+  font-size: 20px;
+  float:right;
+
+  i {
+    margin: 20px 10px 20px 0;
+    opacity: 0.1;
+    cursor: pointer;
+    font-size: 50px;
+  }
+
+  .yellowStar {
+    color: orange;
+    opacity: 1;
+  }
 `;

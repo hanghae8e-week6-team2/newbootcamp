@@ -23,20 +23,24 @@
   ],
   "comment": [
     {
-      "bootcampId": 1,
-      "userIdx": 1,
-      "userId": "ckdgus270",
-      "content": "부트캠프id 1에 대한 댓글",
-      "rating": "3",
-      "createAt": "TimeStamp"
+      "content": "444",
+      "rating": 3,
+      "id": 3
     },
     {
-      "bootcampId": 2,
-      "userIdx": 2,
-      "userId": "tmdwns270",
-      "content": "부트캠프id 1에 대한 댓글 2",
-      "rating": "4",
-      "createAt": "TimeStamp"
+      "content": "44444",
+      "rating": 5,
+      "id": 4
+    },
+    {
+      "content": "333",
+      "rating": 1,
+      "id": 5
+    },
+    {
+      "content": "5444",
+      "rating": 3,
+      "id": 6
     }
   ]
 }
