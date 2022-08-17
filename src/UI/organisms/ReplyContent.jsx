@@ -44,6 +44,7 @@ function ReplyContent() {
   return (
     <Alcoform>
       <form action="" onSubmit={ReplyAdd}>
+        <Replys>
         <FormContent>
           <Label>닉네임</Label>
           <NicInput
@@ -65,7 +66,9 @@ function ReplyContent() {
             maxLength="20"
             placeholder="20자 이내로 간단한 후기를 작성해주세요."
           />
-        </FormContent>
+        </FormContent>          
+        </Replys>
+
         <ThemeProvider
           theme={{
             palette: {
@@ -78,7 +81,9 @@ function ReplyContent() {
           <Button color="green" type="submit" style={{ margin: "0 0 0 8px" }}>
             추가
           </Button>
-          <Rating clicked={clicked} setClicked={setClicked} />
+          <RatingBox>
+            <Rating clicked={clicked} setClicked={setClicked} />            
+          </RatingBox>
         </ThemeProvider>
       </form>
       <ul>
@@ -93,24 +98,28 @@ function ReplyContent() {
 export default ReplyContent;
 
 const Alcoform = styled.div`
-  width: 600px;
+  width: 70%;
   height: 200px;
-  border-bottom: 1px solid black;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 100px;
+  margin: auto;
 `;
 const FormContent = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0.5rem 0;
+
+  
 `;
+
+const Replys = styled.div`
+  display: inline-flex;
+  /* justify-content: center; */
+  align-items: center;
+  width: 80%;
+
+`
 const Label = styled.label`
   border-radius: 20px;
   font-weight: bold;
-  color: #3cfbff;
+  font-size: 15px;
+  color: #000000;
   margin: 0 0.3rem 0 0;
 `;
 const NicInput = styled.input`
@@ -128,3 +137,9 @@ const CommentInput = styled.input`
   padding: 0.3rem;
   color: black;
 `;
+
+const RatingBox = styled.div`
+  width: 80%;
+
+  display: block;
+`

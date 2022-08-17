@@ -28,7 +28,7 @@ const MainList = () => {
                             <Title>{boot.bootcampName}</Title>
                             <Comp>{boot.bootcampCompany}</Comp>
                             <Describe>{boot.describe}</Describe>
-                            <Button onClick={() => { navigate(`/post/${boot.bootcampId}`) }} variant="primary" style={{ width: '28rem' }}>상세보기</Button>
+                            <Button onClick={() => { navigate(`/post/${boot.bootcampId}`) }} variant="dark" style={{ width: '10rem' }}>상세보기</Button>
                         </Body>
                     </Card>
                 )
@@ -43,10 +43,11 @@ export default MainList;
 
 
 const CardArea = styled.div`
-
+    align-content: center;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    margin: 100px 150px;
+    margin: auto;
     padding: 30px;
     line-height: 1.5;
 `
@@ -55,7 +56,7 @@ const Card = styled.div`
     border-radius: 5px;
     margin-top: 30px;
     margin-left: 30px;
-    justify-content: center;
+
 `
 
 const Body = styled.div`
@@ -70,12 +71,12 @@ const Title = styled.div`
 
 const Comp = styled.div`
     font-size: 15px;
-    padding-left: 10px;
+    
     padding-top: 5px;
 `
 const Describe = styled.div`
     height: 50px;
-    padding-left: 10px;
+   
     padding-top: 5px;
     width: 280px;
     overflow:hidden;

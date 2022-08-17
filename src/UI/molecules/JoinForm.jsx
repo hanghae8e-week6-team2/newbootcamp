@@ -65,9 +65,9 @@ const JoinForm = () => {
   //todo 포커스 red처리
   return (
     <LoginBox>
-      <Title>signup</Title>
+      <Img src="/logo.jpg"></Img>
       <Form>
-        <P>저희 사이트는 실명제로 운영되고 있습니다😄</P>
+        <Title>signup</Title>
 
         <Input
           required
@@ -110,7 +110,7 @@ const JoinForm = () => {
           style={{
             width: "10rem",
             height: "3rem",
-            marginTop: "10px",
+
             marginBottom: "10px",
           }}
         >
@@ -129,8 +129,7 @@ const LoginBox = styled.div`
   flex-direction: column;
   margin: auto;
   width: 100%;
-  height: 100%;
-  border: 1px solid gainsboro;
+  height: 70%;
 `;
 const Title = styled.h1`
   width: 40rem;
@@ -177,10 +176,14 @@ const AlertBox = styled.div`
   margin: 5px;
   padding: 3px;
   width: 30rem;
-  height: 5rem;
+  height: 3rem;
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
   color: red;
+`;
+const Img = styled.img`
+  width: 16rem;
+  margin-battom: 10px;
 `;
 
 const LogLabel = styled.label``;

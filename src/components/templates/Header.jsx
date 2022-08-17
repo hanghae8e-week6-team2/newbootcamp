@@ -84,4 +84,5 @@ const Btn = styled.button`
 const Title = styled.h2`
   display: inline;
   margin-top: 5px;
-`;
+  font-size: 20px;
+`
