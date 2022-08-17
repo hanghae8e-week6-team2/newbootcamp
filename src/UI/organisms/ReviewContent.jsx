@@ -1,12 +1,12 @@
 //BootPage의 review component 
-import styled from "styled-components";
 import Table from 'react-bootstrap/Table';
-
+import styled, { ThemeProvider } from "styled-components";
+import Button from "../../UI/atoms/button";
 
 
 function reviewContent({data}) {
    
-  
+console.log(data);
 
  return(
     <ReviewMain>
@@ -51,7 +51,34 @@ function reviewContent({data}) {
      
         
       </Table>
-      
+      <ThemeProvider
+          theme={{
+            palette: {
+              green: "#0c6846",
+              purple: "#FF9DFF",
+              red: "#FF4646",
+            },
+          }}
+        >
+          <BtnArea>
+            <Button
+              color="green"
+              type="button"
+              style={{ height: "40px", width: "300px", marginBottom: "10px" }}
+            >
+              <span
+                style={{
+                  width: "50rem",
+                  height: "3rem",
+                  fontSize: "20px",
+                }}
+              >
+                {" "}
+                삭제
+              </span>
+            </Button>
+          </BtnArea>
+        </ThemeProvider>
     </ReviewBody> 
   </ReviewMain>
  )
@@ -74,3 +101,10 @@ const ReviewMain = styled.div `
   display:block;
   margin-left:auto;
   margin-right:auto;`
+
+const BtnArea = styled.div`
+padding: 2px;
+display: block;
+margin-left: auto;
+margin-right: auto;
+`;

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { getReply, addReply } from "../../redux/modules/ReplySlice";
 import ReplyItem from "../molecules/ReplyItem";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "../atoms/Button";
-import Rating from "../atoms/Rating";
+import Button from "../atoms/button"
+import Rating from "../atoms/rating";
 import { useParams } from "react-router-dom";
 
 function ReplyContent() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "../../UI/atoms/Button";
+import Button from "../../UI/atoms/button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addBoot, getBoot } from "../../redux/modules/AddSlice";

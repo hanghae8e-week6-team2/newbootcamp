@@ -33,6 +33,7 @@ function DetailPage() {
             <div key={data.bootcampId}>
               <ReviewContent data={data} id={data.bootcampId} />
               <ReplyContent id={id} />
+              
             </div>
           );
         }
