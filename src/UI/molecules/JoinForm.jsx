@@ -116,6 +116,7 @@ const JoinForm = () => {
         >
           회원가입 하기
         </Button>
+        <button>수정하기 </button>
       </Form>
     </LoginBox>
   );

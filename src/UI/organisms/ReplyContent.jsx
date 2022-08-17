@@ -6,6 +6,8 @@ import styled, { ThemeProvider } from "styled-components";
 import Button from "../atoms/Button";
 import Rating from "../atoms/Rating";
 import { useParams } from "react-router-dom";
+//!민지수정
+import EditPost from "../molecules/EditPost";
 
 function ReplyContent() {
   const { id } = useParams();
@@ -40,9 +42,13 @@ function ReplyContent() {
       alert("입력해주세요");
     }
   };
+  ///!민지수정
+  const [modal, setModal] = useState(false);
 
   return (
     <Alcoform>
+      <button onClick={() => setModal(!modal)}>수정하기</button>
+      {modal ? <EditPost /> : null}
       <form action="" onSubmit={ReplyAdd}>
         <FormContent>
           <Label>닉네임</Label>
