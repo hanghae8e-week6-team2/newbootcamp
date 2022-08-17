@@ -2,11 +2,24 @@
 import Table from 'react-bootstrap/Table';
 import styled, { ThemeProvider } from "styled-components";
 import Button from "../../UI/atoms/button";
+import {deleteBoot} from "../../redux/modules/DetailSlice"
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+function ReviewContent({data}) {
+  //use 함수를 불러오려면 컴포넌트 첫글자가 대문자여야한다.
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-function reviewContent({data}) {
-   
-console.log(data);
+  console.log(data.bootcampId);
+
+  const bootId = data.bootcampId
+  const onDelete = (e)=>{
+    e.preventDefault();
+    dispatch(deleteBoot(bootId));
+    alert("삭제가 완료되었습니다.")
+    navigate("/");
+  }
 
  return(
     <ReviewMain>
@@ -62,6 +75,7 @@ console.log(data);
         >
           <BtnArea>
             <Button
+             onClick={onDelete}
               color="green"
               type="button"
               style={{ height: "40px", width: "300px", marginBottom: "10px" }}
@@ -83,7 +97,7 @@ console.log(data);
   </ReviewMain>
  )
 }
-export default reviewContent;
+export default ReviewContent;
 
 const ReviewTitle = styled.div`
    margin: 20px auto auto 0;

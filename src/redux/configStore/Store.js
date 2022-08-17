@@ -3,12 +3,12 @@ import { joinSlice } from "../modules/JoinSlice";
 import { loginSlice } from "../modules/LoginSlice";
 import { detailSlice } from "../modules/DetailSlice";
 import { replySlice } from "../modules/ReplySlice";
-import { mainSlice } from "../modules/MainSlice";
+ //import { mainSlice } from "../modules/MainSlice";
 import { bootSlice } from "../modules/AddSlice";
 
 
 const reducer = combineReducers({
-  mainSlice:mainSlice.reducer,
+  //mainSlice:mainSlice.reducer,
   joinSlice: joinSlice.reducer,
   detailSlice: detailSlice.reducer,
   replySlice: replySlice.reducer,

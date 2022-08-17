@@ -12,9 +12,9 @@ import { useParams } from "react-router-dom";
 function DetailPage() {
   const dispatch = useDispatch();
   const bootList = useSelector((state) => state.detailSlice);
-
+ console.log(bootList)
   useEffect(() => {
-    dispatch(getBoot());
+    dispatch(getBoot(bootList.bootcampId));
   }, []);
 
   const { id } = useParams();
@@ -33,7 +33,6 @@ function DetailPage() {
             <div key={data.bootcampId}>
               <ReviewContent data={data} id={data.bootcampId} />
               <ReplyContent id={id} />
-              
             </div>
           );
         }

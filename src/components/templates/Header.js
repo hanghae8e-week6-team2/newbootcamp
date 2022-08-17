@@ -49,17 +49,13 @@ function Header() {
                   >
                     로그아웃
                   </Btn>
+                  <NavDropdown.Item onClick={() => navigate("/create/post")}>
+              글쓰기
+            </NavDropdown.Item>
                 </div>
               )}
             </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
+        
           </NavDropdown>
           {userId === undefined || userId === "" ? null : (
             <div>{userId}님 환영합니다. </div>
