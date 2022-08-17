@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import React, { useState, useRef } from "react";
 import { updateReply, deleteReply } from "../../redux/modules/ReplySlice";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "./button";
+import Button from "../atoms/Button"
 import {FaStar} from 'react-icons/fa';
 
 function Replyitem({ data,bootId}) {

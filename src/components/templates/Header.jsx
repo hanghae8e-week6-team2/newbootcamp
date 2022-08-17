@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { test } from "../../redux/modules/LoginSlice";
 import { removeCookie, getCookie } from "../../api/cookie";
+import styled from "styled-components";
 
 function Header() {
   const userId = useSelector((state) => state.loginSlice.token);
@@ -21,12 +22,36 @@ function Header() {
     }
   }, [islogin]);
   return (
-    <Navbar bg="white" variant="white">
+    <Navbar
+      style={{
+        height: "10rem",
+      }}
+      bg="white"
+      variant="white"
+    >
       <Container>
-        <Navbar.Brand href="/">BootCamp</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Img src="/logo.jpg"></Img>
+          <Title> BootCamp</Title>
+        </Navbar.Brand>
         <Nav className="me-auto">
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+          <NavDropdown title="메뉴보기" id="basic-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">
+              {userId === undefined || userId === "" ? (
+                <Btn onClick={() => navigate("/user/login")}>로그인</Btn>
+              ) : (
+                <div>
+                  <Btn
+                    onClick={() => {
+                      removeCookie("is_login");
+                      navigate("/user/login");
+                    }}
+                  >
+                    로그아웃
+                  </Btn>
+                </div>
+              )}
+            </NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">
               Another action
             </NavDropdown.Item>
@@ -36,22 +61,8 @@ function Header() {
               Separated link
             </NavDropdown.Item>
           </NavDropdown>
-          {userId === undefined || userId === "" ? (
-            <button onClick={() => navigate("/user/login")}>로그인</button>
-          ) : (
-            <div>
-              {" "}
-              <div>{userId}님 환영합니다. </div>
-              <button
-                onClick={() => {
-                  removeCookie("is_login");
-                  console.log(islogin);
-                  navigate("/user/login");
-                }}
-              >
-                로그아웃
-              </button>
-            </div>
+          {userId === undefined || userId === "" ? null : (
+            <div>{userId}님 환영합니다. </div>
           )}
         </Nav>
       </Container>
@@ -60,3 +71,17 @@ function Header() {
 }
 
 export default Header;
+
+const Img = styled.img`
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+`;
+const Btn = styled.button`
+  all: unset;
+  width: 100%;
+`;
+const Title = styled.h2`
+  display: inline;
+  margin-top: 5px;
+`;
