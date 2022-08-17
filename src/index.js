@@ -6,7 +6,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import Store from "./redux/configStore/Store";
 import { Provider } from "react-redux";
-import '@fortawesome/free-solid-svg-icons'
+//import '@fortawesome/free-solid-svg-icons'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

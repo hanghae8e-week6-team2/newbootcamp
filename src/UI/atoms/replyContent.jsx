@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getReply, addReply } from "../../redux/modules/ReplySlice";
 import ReplyItem from "./replyItem";
 import styled, { ThemeProvider } from "styled-components";
@@ -8,9 +8,9 @@ import Rating from "./rating";
 import { useParams } from "react-router-dom";
 
 function ReplyContent() {
-  const {id} = useParams();
+  const { id } = useParams();
   console.log(id);
-  
+
   const [clicked, setClicked] = useState(0);
 
   const [userValue, setUserValue] = useState("1234");
@@ -25,30 +25,21 @@ function ReplyContent() {
 
   useEffect(() => {
     dispatch(getReply());
-
   }, []);
-  //useEffect는  useEffect가 속한 컴포넌트가 화면에 렌더링 될때 실행됩니다.
-  //이 컴포넌트에서 화면이 렌더링된다는뜻은
-  //사용자가 input에 값을 입력할때 말합니다.
 
-  // [] 의존성 배열 입니다  [] 안에 state 함수를 넣으면 state 값이 변경이될때 실행됩니다.
-  //[] 빈값으로 두면 useeffect 안의 함수가 한번만 실행됩니다.
-  
   const ReplyAdd = (e) => {
     e.preventDefault();
 
     if (userValue) {
-      const newList = {content:commentValue,rating:clicked};
-     //중요포인트 한객체안에 각각의 input값 2개 동시 저장
+      const newList = { content: commentValue, rating: clicked };
+      //중요포인트 한객체안에 각각의 input값 2개 동시 저장
       dispatch(addReply(newList));
       setUserValue("");
       setCommentValue("");
-      
     } else {
       alert("입력해주세요");
     }
   };
-
 
   return (
     <Alcoform>
@@ -87,18 +78,14 @@ function ReplyContent() {
           <Button color="green" type="submit" style={{ margin: "0 0 0 8px" }}>
             추가
           </Button>
-          <Rating clicked={clicked} setClicked={setClicked}/>
+          <Rating clicked={clicked} setClicked={setClicked} />
         </ThemeProvider>
       </form>
-       <ul>
-         {replyList.map((data) => (
-          <ReplyItem
-            key={data.id}
-            data={data}
-            bootId={data.id}
-          ></ReplyItem>
-        ))} 
-      </ul> 
+      <ul>
+        {replyList.map((data) => (
+          <ReplyItem key={data.id} data={data} bootId={data.id}></ReplyItem>
+        ))}
+      </ul>
     </Alcoform>
   ); //return
 } //ReplyList
