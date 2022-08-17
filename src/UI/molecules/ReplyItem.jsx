@@ -2,19 +2,17 @@ import { useDispatch } from "react-redux";
 import React, { useState, useRef } from "react";
 import { updateReply, deleteReply } from "../../redux/modules/ReplySlice";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "./button";
-import {FaStar} from 'react-icons/fa';
+import Button from "../atoms/Button";
+import { FaStar } from "react-icons/fa";
 
-function Replyitem({ data,bootId}) {
+function Replyitem({ data, bootId }) {
   //text state
   const [state, setState] = useState(data);
-  const [delValue,setDelValue] = useState(bootId);
+  const [delValue, setDelValue] = useState(bootId);
   console.log(typeof bootId);
-  console.log(data.rating)
+  console.log(data.rating);
 
-
- 
-    console.log(data.rating);
+  console.log(data.rating);
   const dispatch = useDispatch();
   const Clickref = useRef();
 
@@ -23,23 +21,22 @@ function Replyitem({ data,bootId}) {
     dispatch(deleteReply(bootId));
   };
 
-  const date  = new Date();
+  const date = new Date();
   const time = date.toString();
 
   //비구조화 할당으로 text값 가져오기
   const onChangeHandler = (e) => {
-      const { name, value} = e.target;
-      setState({...state,[name]:value})
-      console.log(state.content)
-    
-    } ;
-    const campId = data.id;
-const bootData = {campId ,content : state.content, rating: state.rating}
-  const onSubmitHandler = (e) =>{
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
+    console.log(state.content);
+  };
+  const campId = data.id;
+  const bootData = { campId, content: state.content, rating: state.rating };
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateReply({bootId, bootData}));
+    dispatch(updateReply({ bootId, bootData }));
     Clickref.current.style.display = "none";
-  }
+  };
 
   const ClickEvent = () => {
     Clickref.current.style.display = "block";
@@ -53,21 +50,16 @@ const bootData = {campId ,content : state.content, rating: state.rating}
         <CommentArea>{data.content}</CommentArea>
 
         <ReviewBox>
-
           {/* 평점 로직 */}
-         <StarContainer>
-        {[1, 2, 3, 4, 5].map(el => (
-          <FaStar
-            className={`fas fa-star ${
-            data.rating >= el && 'yellowStar'
-            }`}
-            key={el}
-
-          />
-        ))}
-      </StarContainer>
-
-      </ReviewBox>
+          <StarContainer>
+            {[1, 2, 3, 4, 5].map((el) => (
+              <FaStar
+                className={`fas fa-star ${data.rating >= el && "yellowStar"}`}
+                key={el}
+              />
+            ))}
+          </StarContainer>
+        </ReviewBox>
         <ThemeProvider
           theme={{
             palette: {
@@ -78,13 +70,10 @@ const bootData = {campId ,content : state.content, rating: state.rating}
           }}
         >
           <BtnArea>
-        
             <Button color="green" type="button" id="reply" onClick={ClickEvent}>
               수정
             </Button>
-            <Button color="red" type="button" 
-            onClick={replyDelete}
-            >
+            <Button color="red" type="button" onClick={replyDelete}>
               삭제
             </Button>
           </BtnArea>
@@ -92,9 +81,7 @@ const bootData = {campId ,content : state.content, rating: state.rating}
       </ReplyWrap>
 
       <UP_DEL ref={Clickref}>
-        <form
-        onSubmit={onSubmitHandler}
-         >
+        <form onSubmit={onSubmitHandler}>
           <Label>닉네임</Label>
           <NicInput
             type="text"
@@ -115,7 +102,7 @@ const bootData = {campId ,content : state.content, rating: state.rating}
               value={state.content}
             />
           </CommentInput>
-     
+
           <ThemeProvider
             theme={{
               palette: {
@@ -165,7 +152,6 @@ const UserArea = styled.div`
   font-size: 15px;
   font-weight: bold;
   color: black;
-
 `;
 const CommentArea = styled.div`
   display: inline-block;
@@ -211,19 +197,16 @@ const CommentInput = styled.div`
   color: black;
 `;
 
-
 const StarContainer = styled.div`
   text-align: center;
   border: none;
   background-color: white;
 `;
 
-
 const ReviewBox = styled.div`
-
   color: #999;
   font-size: 20px;
-  float:right;
+  float: right;
 
   i {
     margin: 20px 10px 20px 0;

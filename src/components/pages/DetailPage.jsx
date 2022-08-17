@@ -1,11 +1,11 @@
 import Layout from "../templates/Layout.js";
 import Header from "../templates/Header.js";
-import ReviewContent from "../../ui/atoms/reviewContent";
-import ReplyContent from "../../ui/atoms/replyContent";
+import ReviewContent from "../../UI/organisms/ReviewContent";
+import ReplyContent from "../../UI/organisms/ReplyContent";
 import { Nav } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBoot } from "../../redux/modules/DetailSlice";
+import { getBoot } from "../../redux/modules/DetailSlice.js";
 
 import { useParams } from "react-router-dom";
 

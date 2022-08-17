@@ -25,8 +25,9 @@ const LoginForm = () => {
 
   return (
     <Box>
-      <Title>login</Title>
+      <Img src="/logo.jpg"></Img>
       <Form>
+        <Title>login</Title>
         <Input
           name="id"
           value={id}
@@ -44,6 +45,7 @@ const LoginForm = () => {
           value={password}
           placeholder="비밀번호를 입력하세요 "
           required
+          type="password"
         />
         <Button
           variant="dark"
@@ -89,8 +91,7 @@ const Box = styled.div`
   flex-direction: column;
   margin: auto;
   width: 100%;
-  height: 100%;
-  border: 1px solid gainsboro;
+  height: 70%;
 `;
 const Title = styled.h1`
   width: 40rem;
@@ -130,6 +131,10 @@ const JoinBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`;
+const Img = styled.img`
+  width: 16rem;
+  margin-battom: 5px;
 `;
 
 const LogLabel = styled.label``;

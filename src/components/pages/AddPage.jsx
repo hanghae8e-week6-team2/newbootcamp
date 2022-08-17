@@ -1,54 +1,46 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "../../UI/atoms/button";
+import Button from "../../UI/atoms/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {addBoot, getBoot} from "../../redux/modules/AddSlice"
+import { addBoot, getBoot } from "../../redux/modules/AddSlice";
 
 const AddPage = () => {
-    const bootcampAdd = useSelector((state)=>state.bootSlice)
-    console.log(bootcampAdd)
-    //reducer 에서 가져온 데이터 state 에저장
-    const [state,setState] = useState(bootcampAdd);
-    console.log(state);
-
+  const bootcampAdd = useSelector((state) => state.bootSlice);
+  console.log(bootcampAdd);
+  //reducer 에서 가져온 데이터 state 에저장
+  const [state, setState] = useState(bootcampAdd);
+  console.log(state);
 
   //버튼클릭시 색상유지하는 state
-  const [currentClick, setCurrentClick]= useState(null);
+  const [currentClick, setCurrentClick] = useState(null);
   const [prevClick, setPrevClick] = useState(null);
 
   //폼입력 저장에 대한 state
 
+  //초기값 설정
 
-
-//초기값 설정
-
-
-const initialState = {
+  const initialState = {
     bootcampId: "",
     bootcampName: "",
     bootcampCompany: "",
     totalWeeks: "",
     price: "",
-    onoffLine:0,
+    onoffLine: 0,
     position: 0,
-    describe: ""
-};
-const [form, setForm] = useState(initialState);
-
-
-
-  const [currentClick1, setCurrentClick1]= useState(null);
-  const [prevClick1, setPrevClick1] = useState(null);
-  console.log(currentClick1)
-  console.log(prevClick1)
-  //  클릭이벤트 함수
-  const GetClick = (e) =>{
-    setCurrentClick(e.target.id);
-    
+    describe: "",
   };
-  const stackClick = (e) =>{
+  const [form, setForm] = useState(initialState);
+
+  const [currentClick1, setCurrentClick1] = useState(null);
+  const [prevClick1, setPrevClick1] = useState(null);
+  console.log(currentClick1);
+  console.log(prevClick1);
+  //  클릭이벤트 함수
+  const GetClick = (e) => {
+    setCurrentClick(e.target.id);
+  };
+  const stackClick = (e) => {
     setCurrentClick1(e.target.id);
   };
 
@@ -56,95 +48,91 @@ const [form, setForm] = useState(initialState);
   const navigate = useNavigate();
   const nameref = useRef();
 
-  useEffect(()=>{
-    dispatch(getBoot())
-  },[])
+  useEffect(() => {
+    dispatch(getBoot());
+  }, []);
 
   useEffect(() => {
     nameref.current.focus();
-        if(currentClick !== null){
-              let current = document.getElementById(currentClick);
-              console.log(current);
-                current.style.color = "black";
-                current.style.borderBottom = "2px solid";
-                current.style.borderBottomColor = "#1c28f4";
-        }
+    if (currentClick !== null) {
+      let current = document.getElementById(currentClick);
+      console.log(current);
+      current.style.color = "black";
+      current.style.borderBottom = "2px solid";
+      current.style.borderBottomColor = "#1c28f4";
+    }
 
-        if(prevClick !== null){
-            let prev = document.getElementById(prevClick);
-            prev.style.color = "#bebcbc";
-            prev.style.borderBottom = "none";
-        }
-        setPrevClick(currentClick); //2번째 렌더링
+    if (prevClick !== null) {
+      let prev = document.getElementById(prevClick);
+      prev.style.color = "#bebcbc";
+      prev.style.borderBottom = "none";
+    }
+    setPrevClick(currentClick); //2번째 렌더링
+  }, [currentClick]);
 
+  useEffect(() => {
+    if (currentClick1 !== null) {
+      let current = document.getElementById(currentClick1);
+      console.log(current);
+      current.style.color = "black";
+      current.style.borderBottom = "2px solid";
+      current.style.borderBottomColor = "#1c28f4";
+    }
 
-    
-    },
-    [currentClick]);
+    if (prevClick1 !== null) {
+      let prev = document.getElementById(prevClick1);
+      prev.style.color = "#bebcbc";
+      prev.style.borderBottom = "none";
+    }
+    setPrevClick1(currentClick1);
+  }, [currentClick1]);
 
-    useEffect(()=>{
-        if(currentClick1 !== null){
-            let current = document.getElementById(currentClick1);
-            console.log(current);
-              current.style.color = "black";
-              current.style.borderBottom = "2px solid";
-              current.style.borderBottomColor = "#1c28f4";
-      }
+  //   const [alertBox, setAlertBox] = useState("");
 
-      if(prevClick1 !== null){
-          let prev = document.getElementById(prevClick1);
-          prev.style.color = "#bebcbc";
-          prev.style.borderBottom = "none";
-      }
-      setPrevClick1(currentClick1);
-    },[currentClick1])
-
-
-  
-
-
-  
-
-
-
-//   const [alertBox, setAlertBox] = useState("");
-
-//   //! 조건을 순서대로 통과해야 버튼이 활성화
-//   const onChange = (e) => {
-//     const REGID = /^[a-zA-Z][0-9a-zA-Z]{3,9}$/;
-//     const REGPW =
-//       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
-//     const { name, value } = e.target;
-//     setForm((form) => ({ ...form, [name]: value }));
-//     if (id === "" || !REGID.test(id)) {
-//       setAlertBox("아이디는 한글,영문 포함 4-10자입니다");
-//     } else if (password === "" || !REGPW.test(password)) {
-//       setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
-//     } else if (confirmPassword === "" || confirmPassword !== password) {
-//       setAlertBox("비밀번호가 일치하지 않습니다");
-//     } else if (userName === "" || userName.length > 7) {
-//       setAlertBox("이름을 확인해주세요");
-//     } else {
-//       //버튼 활성화 토글
-//     //   setJoinToggle(false);
-//     }
-//   };
-//   const { id, password, confirmPassword, userName } = form;
-//   const AddData = { id, password, confirmPassword, name: userName };
+  //   //! 조건을 순서대로 통과해야 버튼이 활성화
+  //   const onChange = (e) => {
+  //     const REGID = /^[a-zA-Z][0-9a-zA-Z]{3,9}$/;
+  //     const REGPW =
+  //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
+  //     const { name, value } = e.target;
+  //     setForm((form) => ({ ...form, [name]: value }));
+  //     if (id === "" || !REGID.test(id)) {
+  //       setAlertBox("아이디는 한글,영문 포함 4-10자입니다");
+  //     } else if (password === "" || !REGPW.test(password)) {
+  //       setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
+  //     } else if (confirmPassword === "" || confirmPassword !== password) {
+  //       setAlertBox("비밀번호가 일치하지 않습니다");
+  //     } else if (userName === "" || userName.length > 7) {
+  //       setAlertBox("이름을 확인해주세요");
+  //     } else {
+  //       //버튼 활성화 토글
+  //     //   setJoinToggle(false);
+  //     }
+  //   };
+  //   const { id, password, confirmPassword, userName } = form;
+  //   const AddData = { id, password, confirmPassword, name: userName };
 
   //! 회
 
+  const {
+    bootcampName,
+    bootcampCompany,
+    totalWeeks,
+    price,
+    onoffLine,
+    position,
+    describe,
+  } = form;
 
-const {bootcampName,bootcampCompany,totalWeeks,price,onoffLine,position,describe} =form;
-
-const addData = { bootcampName ,
-bootcampCompany: "",
-totalWeeks: "",
-price: "",
-onoffLine:0,
-position: 0,
-describe: ""}
-
+  const addData = {
+    bootcampName,
+    bootcampCompany: "",
+    totalWeeks: "",
+    price: "",
+    onoffLine: 0,
+    position: 0,
+    describe: "",
+  };
 
   const onClick = () => {
     dispatch(addBoot());
@@ -153,12 +141,10 @@ describe: ""}
     navigate("/");
   };
 
-  const onChangeHandler =  (e) => { 
-        const {name, value} = e.target;
-        setState({...state,[name]:value}
-    );
-
-  }
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
+  };
 
   return (
     <LoginBox>
@@ -180,7 +166,6 @@ describe: ""}
           name="bootcampCompany"
           value={bootcampCompany}
           onChange={onChangeHandler}
-          
           placeholder="부트캠프 회사를 입력하세요 "
         />
         <Input
@@ -190,7 +175,7 @@ describe: ""}
           onChange={onChangeHandler}
           placeholder="부트캠프의 수강기간을 입력하세요"
         />
-             <ThemeProvider
+        <ThemeProvider
           theme={{
             palette: {
               green: "#9BFFDA",
@@ -200,11 +185,25 @@ describe: ""}
           }}
         >
           <BtnArea>
-            <p style={{textAlign:"center"}}>온&오프라인 선택</p>
-            <Button  color="purple" type="button" id="onOff1" name="onLine" value="1" onClick={GetClick}>
+            <p style={{ textAlign: "center" }}>온&오프라인 선택</p>
+            <Button
+              color="purple"
+              type="button"
+              id="onOff1"
+              name="onLine"
+              value="1"
+              onClick={GetClick}
+            >
               온라인
             </Button>
-            <Button color="red" type="button" id="onOff2"  name="offLine" value="2" onClick={GetClick}>
+            <Button
+              color="red"
+              type="button"
+              id="onOff2"
+              name="offLine"
+              value="2"
+              onClick={GetClick}
+            >
               오프라인
             </Button>
           </BtnArea>
@@ -227,26 +226,45 @@ describe: ""}
           }}
         >
           <BtnArea>
-            <p style={{textAlign:"center"}}>스텍 선택</p>
-            <Button color="purple" type="button" id="stack1" name="back" value="1" onClick={stackClick}>
+            <p style={{ textAlign: "center" }}>스텍 선택</p>
+            <Button
+              color="purple"
+              type="button"
+              id="stack1"
+              name="back"
+              value="1"
+              onClick={stackClick}
+            >
               백엔드
             </Button>
-            <Button color="red" type="button" id="stack2" name="front" value="2" onClick={stackClick}>
+            <Button
+              color="red"
+              type="button"
+              id="stack2"
+              name="front"
+              value="2"
+              onClick={stackClick}
+            >
               프론트엔드
             </Button>
-            <Button color="green" type="button" id="stack3" name="full" value="3" onClick={stackClick}>
+            <Button
+              color="green"
+              type="button"
+              id="stack3"
+              name="full"
+              value="3"
+              onClick={stackClick}
+            >
               풀스택
             </Button>
           </BtnArea>
 
-          <p style={{marginTop:"15px"}}>부트캠프에 대한 설명</p>
+          <p style={{ marginTop: "15px" }}>부트캠프에 대한 설명</p>
           <Describe name="describe" value={describe}></Describe>
-
         </ThemeProvider>
         {/* <AlertBox>{alertBox}</AlertBox> */}
-    
-      
-      <ThemeProvider
+
+        <ThemeProvider
           theme={{
             palette: {
               green: "#0c6846",
@@ -256,17 +274,25 @@ describe: ""}
           }}
         >
           <BtnArea>
-            <Button   color="green" type="button"
-            style={{ height:"40px",width:"300px",marginBottom:"10px"}}>
-            <span  style={{
-            width: "50rem",
-            height: "3rem",
-            fontSize:"20px",
-          }}> 등록</span>      
+            <Button
+              color="green"
+              type="button"
+              style={{ height: "40px", width: "300px", marginBottom: "10px" }}
+            >
+              <span
+                style={{
+                  width: "50rem",
+                  height: "3rem",
+                  fontSize: "20px",
+                }}
+              >
+                {" "}
+                등록
+              </span>
             </Button>
           </BtnArea>
         </ThemeProvider>
-        </Form>
+      </Form>
     </LoginBox>
   );
 };
@@ -340,12 +366,10 @@ const BtnArea = styled.div`
 `;
 
 const Describe = styled.textarea`
-  margin-top : 0px;
+  margin-top: 0px;
   padding: 3px;
   border: 1px solid gainsboro;
   width: 30rem;
   height: 20rem;
   border-radius: 10px;
-`
-
-
+`;
