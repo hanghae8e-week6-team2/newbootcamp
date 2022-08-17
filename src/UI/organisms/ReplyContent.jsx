@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { getReply, addReply } from "../../redux/modules/ReplySlice";
-import ReplyItem from "./replyItem";
+import ReplyItem from "../molecules/ReplyItem";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "./button";
-import Rating from "./rating";
+import Button from "../atoms/Button";
+import Rating from "../atoms/Rating";
 import { useParams } from "react-router-dom";
 
 function ReplyContent() {
