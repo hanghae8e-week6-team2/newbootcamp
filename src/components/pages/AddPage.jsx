@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Button from "../../UI/atoms/button";
+import Button from "../../UI/atoms/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {addBoot, getBoot} from "../../redux/modules/AddSlice"
@@ -18,39 +18,58 @@ const AddPage = () => {
   const [currentClick, setCurrentClick]= useState(null);
   const [prevClick, setPrevClick] = useState(null);
 
-  //폼입력 저장에 대한 state
-
-
 
 //초기값 설정
 
 
 const initialState = {
-    bootcampId: "",
     bootcampName: "",
     bootcampCompany: "",
     totalWeeks: "",
     price: "",
-    onoffLine:0,
-    position: 0,
+    onoffLine:"",
+    position: "",
     describe: ""
 };
 const [form, setForm] = useState(initialState);
 
-
+console.log(form);
 
   const [currentClick1, setCurrentClick1]= useState(null);
   const [prevClick1, setPrevClick1] = useState(null);
+
+
   console.log(currentClick1)
   console.log(prevClick1)
   //  클릭이벤트 함수
   const GetClick = (e) =>{
-    setCurrentClick(e.target.id);
+    //  setCurrentClick(e.target.id);
+    if(e.target.id==="onoff1"){
+     setForm({...form,onoffLine:"1"})
     
+   }else if(e.target.id==="onoff2"){
+    setForm({...form,onoffLine:"2"})
+   }
+    
+
   };
   const stackClick = (e) =>{
-    setCurrentClick1(e.target.id);
+    //  setCurrentClick1(e.target.id);
+    //  console.log(currentClick1)
+    if(e.target.id==="stack1"){
+      setForm({...form,position:"1"})
+ 
+    }else if(e.target.id==="stack2"){
+      setForm({...form,position:"2"})
+     
+    }else if(e.target.id==="stack3"){
+      setForm({...form,position:"3"})
+    
+    }
+  
   };
+
+ 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -135,29 +154,35 @@ const [form, setForm] = useState(initialState);
   //! 회
 
 
-const {bootcampName,bootcampCompany,totalWeeks,price,onoffLine,position,describe} =form;
+const {bootcampName,bootcampCompany,price,totalWeeks,describe} =form;
 
-const addData = { bootcampName ,
-bootcampCompany: "",
-totalWeeks: "",
-price: "",
-onoffLine:0,
-position: 0,
-describe: ""}
+
+
+
+
+// const post = { 
+// bootcampName:bootcampName ,
+// bootcampCompany:bootcampCompany,
+// totalWeeks:totalWeeks,
+// onoffLine:onoff,
+// price:price,
+// position:stack,
+// describe:describe
+// }
+
+
 
 
   const onClick = () => {
-    dispatch(addBoot());
+    dispatch(addBoot(form));
     setForm(initialState);
     alert("게시글이 등록되었습니다..");
-    navigate("/");
+    // navigate("/");
   };
 
   const onChangeHandler =  (e) => { 
         const {name, value} = e.target;
-        setState({...state,[name]:value}
-    );
-
+        setForm((form) => ({ ...form, [name]: value }));
   }
 
   return (
@@ -199,15 +224,15 @@ describe: ""}
             },
           }}
         >
-          <BtnArea>
+           <BtnArea>
             <p style={{textAlign:"center"}}>온&오프라인 선택</p>
-            <Button  color="purple" type="button" id="onOff1" name="onLine" value="1" onClick={GetClick}>
+            <Button  color="purple" type="button" id="onoff1"  value={currentClick} onClick={GetClick}>
               온라인
             </Button>
-            <Button color="red" type="button" id="onOff2"  name="offLine" value="2" onClick={GetClick}>
+            <Button color="red" type="button" id="onoff2"   value={currentClick} onClick={GetClick}>
               오프라인
             </Button>
-          </BtnArea>
+          </BtnArea> 
         </ThemeProvider>
         <Input
           required
@@ -228,19 +253,19 @@ describe: ""}
         >
           <BtnArea>
             <p style={{textAlign:"center"}}>스텍 선택</p>
-            <Button color="purple" type="button" id="stack1" name="back" value="1" onClick={stackClick}>
+             <Button color="purple" type="button" id="stack1"  value={currentClick1}  onClick={stackClick}>
               백엔드
             </Button>
-            <Button color="red" type="button" id="stack2" name="front" value="2" onClick={stackClick}>
+            <Button color="red" type="button" id="stack2"   value={currentClick1}  onClick={stackClick}>
               프론트엔드
             </Button>
-            <Button color="green" type="button" id="stack3" name="full" value="3" onClick={stackClick}>
+            <Button color="green" type="button" id="stack3"   value={currentClick1}  onClick={stackClick}>
               풀스택
-            </Button>
+            </Button> 
           </BtnArea>
 
           <p style={{marginTop:"15px"}}>부트캠프에 대한 설명</p>
-          <Describe name="describe" value={describe}></Describe>
+          <Describe  onChange={onChangeHandler} name="describe" value={describe}></Describe>
 
         </ThemeProvider>
         {/* <AlertBox>{alertBox}</AlertBox> */}
@@ -256,14 +281,14 @@ describe: ""}
           }}
         >
           <BtnArea>
-            <Button   color="green" type="button"
+             <Button   color="green"  type="button" onClick={onClick}
             style={{ height:"40px",width:"300px",marginBottom:"10px"}}>
             <span  style={{
             width: "50rem",
             height: "3rem",
             fontSize:"20px",
           }}> 등록</span>      
-            </Button>
+            </Button> 
           </BtnArea>
         </ThemeProvider>
         </Form>
