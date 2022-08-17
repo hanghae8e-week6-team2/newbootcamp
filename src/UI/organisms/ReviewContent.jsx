@@ -5,13 +5,38 @@ import Button from "../../UI/atoms/button";
 import {deleteBoot} from "../../redux/modules/DetailSlice"
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function ReviewContent({data}) {
   //use 함수를 불러오려면 컴포넌트 첫글자가 대문자여야한다.
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(data.bootcampId);
+
+  const [onOffData,setOnoffData] = useState(data.onoffLine);
+  const [stackData, setStackData] = useState(data.position);
+
+
+  useEffect(()=>{
+    if(onOffData === "1"){
+      setOnoffData("온라인")
+    }else{
+      setOnoffData("오프라인")
+    }
+  
+    if(stackData === "1"){
+      setStackData("백엔드")
+    }else if(stackData === "2"){
+      setStackData("프론트엔드")
+    }else{
+      setStackData("풀스텍")
+    }
+  },[])
+
+
+
+
+
 
   const bootId = data.bootcampId
   const onDelete = (e)=>{
@@ -50,11 +75,11 @@ function ReviewContent({data}) {
         
          <tr>
          <td>온&오프라인</td>
-         <td >{data.onoffLine}</td>
+          <td >{onOffData}</td> 
          </tr>
          <tr>
          <td>포지션</td>
-         <td>{data.position}</td>
+          <td>{stackData}</td> 
          </tr>
          <tr>
          <td>항해99에대한 설명</td>

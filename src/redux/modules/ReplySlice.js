@@ -2,15 +2,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCookie, setCookie } from "../../api/cookie";
 
-export const getReply = createAsyncThunk("GET_REPLY", async (bootcampId) => {
-  try {
-    const response = await axios.get(`http://54.180.95.84/api/post/comment`);
-    console.log(response.data)
-    return response.data.post;
-  } catch (error) {
-    return error.message;
-  }
-});
+// export const getReply = createAsyncThunk("GET_REPLY", async (replyList) => {
+//   try {
+//     console.log(replyList)
+//     const response = await axios.get(`http://54.180.95.84/api/post/`);
+  
+//     console.log(response.data)
+//     return response.data.comment;
+//   } catch (error) {
+//     return error.message;
+//   }
+// });
 
 export const addReply = createAsyncThunk("ADD_REPLY", async (newList) => {
   try {
@@ -62,7 +64,6 @@ export const replySlice = createSlice({
   initialState: [], //초기값은 무조건 배열형태로 줍시다
   reducers: {}, //
   extraReducers: {
-    [getReply.fulfilled]: (state, { payload }) => [...payload],
     [addReply.fulfilled]: (state, { payload }) => [...state, payload],
     [deleteReply.fulfilled]: (state, { payload }) =>
       state.filter((reply) => reply.userIdx !== payload),

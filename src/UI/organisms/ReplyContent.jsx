@@ -6,6 +6,7 @@ import styled, { ThemeProvider } from "styled-components";
 import Button from "../atoms/button"
 import Rating from "../atoms/rating";
 import { useParams } from "react-router-dom";
+import { getBoot } from "../../redux/modules/DetailSlice";
 
 function ReplyContent() {
   const { id } = useParams();
@@ -13,18 +14,18 @@ function ReplyContent() {
 
   const [clicked, setClicked] = useState(0);
 
-  const [userValue, setUserValue] = useState("1234");
+  const [userValue, setUserValue] = useState("");
   const [commentValue, setCommentValue] = useState("");
   //사용자가 입력한 값을 저장하기 위한 state
-  const replyList = useSelector((state) => state.replySlice);
-  console.log(replyList);
+  const replyList = useSelector((state) => state.detailSlice);
+
   //리덕스 스토어에서 값을 받아오기 위한 hook
 
   const dispatch = useDispatch();
   //리덕스스토어에 값을 넘겨주기 위한 hook
 
   useEffect(() => {
-    dispatch(getReply());
+    dispatch(getBoot(replyList));
   }, []);
 
   const ReplyAdd = (e) => {
@@ -83,7 +84,7 @@ function ReplyContent() {
       </form>
       <ul>
         {replyList.map((data) => (
-          <ReplyItem key={data.id} data={data} bootId={data.id}></ReplyItem>
+          <ReplyItem key={data.id} data={data} bootId={data.bootcampId}></ReplyItem>
         ))}
       </ul>
     </Alcoform>
@@ -99,6 +100,7 @@ const Alcoform = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
+  
   margin-bottom: 100px;
 `;
 const FormContent = styled.div`

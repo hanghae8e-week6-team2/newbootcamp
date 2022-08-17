@@ -1,21 +1,26 @@
 import { useDispatch } from "react-redux";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { updateReply, deleteReply } from "../../redux/modules/ReplySlice";
+import { getReply} from "../../redux/modules/DetailSlice"
 import styled, { ThemeProvider } from "styled-components";
 import Button from "../atoms/button";
 import { FaStar } from "react-icons/fa";
-
+ 
 function Replyitem({ data, bootId }) {
+
+  console.log(bootId)
   //text state
   const [state, setState] = useState(data);
-  const [delValue, setDelValue] = useState(bootId);
-  console.log(typeof bootId);
+  console.log(typeof String(bootId));
   console.log(data.rating);
 
-  console.log(data.rating);
   const dispatch = useDispatch();
   const Clickref = useRef();
 
+  useEffect(()=>{
+    dispatch(getReply(String(bootId)))
+  },[])
+  
   const replyDelete = (e) => {
     e.preventDefault();
     dispatch(deleteReply(bootId));
