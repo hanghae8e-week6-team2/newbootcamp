@@ -9,10 +9,7 @@ function Replyitem({ data, bootId }) {
   //text state
   const [state, setState] = useState(data);
   const [delValue, setDelValue] = useState(bootId);
-  console.log(typeof bootId);
-  console.log(data.rating);
 
-  console.log(data.rating);
   const dispatch = useDispatch();
   const Clickref = useRef();
 
@@ -46,9 +43,7 @@ function Replyitem({ data, bootId }) {
   return (
     <Reply>
       <ReplyWrap>
-        <UserArea>{data.id}</UserArea>
         <CommentArea>{data.content}</CommentArea>
-
         <ReviewBox>
           {/* 평점 로직 */}
           <StarContainer>

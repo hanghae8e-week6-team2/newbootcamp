@@ -10,10 +10,9 @@ import { removeCookie, getCookie } from "../../api/cookie";
 import styled from "styled-components";
 
 function Header() {
-  const userId = useSelector((state) => state.loginSlice.token);
-  const [islogin, setIsLogin] = useState(userId);
-  console.log(userId);
-  console.log(islogin);
+  const [데이터] = useSelector((state) => state.loginSlice.token);
+  console.log(데이터);
+  const [islogin, setIsLogin] = useState(데이터);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,6 +20,7 @@ function Header() {
       dispatch(test(navigate));
     }
   }, [islogin]);
+  console.log(데이터);
   return (
     <Navbar
       style={{
@@ -37,7 +37,7 @@ function Header() {
         <Nav className="me-auto">
           <NavDropdown title="메뉴보기" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">
-              {userId === undefined || userId === "" ? (
+              {데이터 === undefined ? (
                 <Btn onClick={() => navigate("/user/login")}>로그인</Btn>
               ) : (
                 <div>
@@ -56,18 +56,7 @@ function Header() {
               )}
             </NavDropdown.Item>
           </NavDropdown>
-          {userId === undefined || userId === "" ? null : (
-            <div>{userId}님 환영합니다. </div>
-          )}
         </Nav>
-        <button
-          onClick={() => {
-            navigate("/create/post");
-          }}
-        >
-          {" "}
-          작성하기
-        </button>
       </Container>
     </Navbar>
   );

@@ -47,7 +47,7 @@ export const test = createAsyncThunk("get/test", async (navigate) => {
     const loginToken = getCookie("is_login");
     const decoded = jwt_decode(loginToken);
     console.log(decoded);
-    return decoded.userId;
+    return decoded;
   } catch (error) {
     console.log(error.code, error.status);
     return error.status;
@@ -77,7 +77,7 @@ const loginSlice = createSlice({
     });
     builder.addCase(test.fulfilled, (state, action) => {
       state.loading = false;
-      state.token = action.payload;
+      state.token = [action.payload];
       state.error = "";
     });
   },

@@ -33,7 +33,7 @@ const JoinForm = () => {
     const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
     if (form.id === "" || !REGID.test(id)) {
-      setAlertBox("아이디는 영문 또는 숫자 4-10자입니다");
+      setAlertBox("아이디는 영문과 숫자 4-10자입니다");
     } else if (password === "" || !REGPW.test(password)) {
       setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
     } else if (confirmPassword === "" || confirmPassword !== password) {

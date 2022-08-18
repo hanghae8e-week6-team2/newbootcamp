@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getCookie } from "../../api/cookie";
 
 const initialState = {
   joinData: [],
   id: [],
+  getDetail: [],
   error: "",
 };
 
@@ -27,6 +29,40 @@ export const addJoin = createAsyncThunk(
   }
 );
 
+export const getDetail = createAsyncThunk("GEt", async (bootcampId) => {
+  try {
+    const response = await axios.get(
+      `http://54.180.95.84/api/post/${bootcampId}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error.message;
+  }
+});
+export const addComment = createAsyncThunk(
+  "add/comment",
+  async ({ id, navigate }) => {
+    try {
+      const response = await //api("/post/createPost");
+      axios({
+        method: "get",
+        url: `http://54.180.95.84/api/post/comment/${id}`,
+        headers: {
+          authorization: `Bearer ${getCookie("is_login")}`,
+        },
+        data: {},
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error.code, error.status);
+      return error.status;
+    }
+  }
+);
+
 const joinSlice = createSlice({
   name: "joinData",
   initialState,
@@ -45,6 +81,11 @@ const joinSlice = createSlice({
       state.loading = false;
       state.joinData = [];
       state.error = action.error.message;
+    });
+    builder.addCase(getDetail.fulfilled, (state, action) => {
+      state.loading = false;
+      state.getDetail = action.payload;
+      state.error = "";
     });
   },
 });

@@ -4,6 +4,8 @@ import Button from "../../UI/atoms/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addBoot, getBoot } from "../../redux/modules/AddSlice";
+import Layout from "../templates/Layout";
+import Header from "../templates/Header";
 
 const AddPage = () => {
   const bootcampAdd = useSelector((state) => state.bootSlice);
@@ -100,44 +102,7 @@ const AddPage = () => {
     setPrevClick1(currentClick1);
   }, [currentClick1]);
 
-  //   const [alertBox, setAlertBox] = useState("");
-
-  //   //! 조건을 순서대로 통과해야 버튼이 활성화
-  //   const onChange = (e) => {
-  //     const REGID = /^[a-zA-Z][0-9a-zA-Z]{3,9}$/;
-  //     const REGPW =
-  //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
-  //     const { name, value } = e.target;
-  //     setForm((form) => ({ ...form, [name]: value }));
-  //     if (id === "" || !REGID.test(id)) {
-  //       setAlertBox("아이디는 한글,영문 포함 4-10자입니다");
-  //     } else if (password === "" || !REGPW.test(password)) {
-  //       setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
-  //     } else if (confirmPassword === "" || confirmPassword !== password) {
-  //       setAlertBox("비밀번호가 일치하지 않습니다");
-  //     } else if (userName === "" || userName.length > 7) {
-  //       setAlertBox("이름을 확인해주세요");
-  //     } else {
-  //       //버튼 활성화 토글
-  //     //   setJoinToggle(false);
-  //     }
-  //   };
-  //   const { id, password, confirmPassword, userName } = form;
-  //   const AddData = { id, password, confirmPassword, name: userName };
-
-  //! 회
-
   const { bootcampName, bootcampCompany, price, totalWeeks, describe } = form;
-
-  // const post = {
-  // bootcampName:bootcampName ,
-  // bootcampCompany:bootcampCompany,
-  // totalWeeks:totalWeeks,
-  // onoffLine:onoff,
-  // price:price,
-  // position:stack,
-  // describe:describe
-  // }
 
   const onClick = () => {
     dispatch(addBoot(form));
@@ -153,153 +118,155 @@ const AddPage = () => {
   };
 
   return (
-    <LoginBox>
-      <Header>부트캠프 등록</Header>
-      <Form>
-        <P>부트캠프 등록 하는 페이지 입니다.😄</P>
+    <Layout>
+      <Header></Header>
+      <LoginBox>
+        <Title>부트캠프 등록</Title>
+        <Form>
+          <P>부트캠프 등록 하는 페이지 입니다.😄</P>
 
-        <Input
-          required
-          name="bootcampName"
-          value={bootcampName}
-          ref={nameref}
-          onChange={onChangeHandler}
-          placeholder="부트캠프명을 입력하세요"
-        />
-
-        <Input
-          required
-          name="bootcampCompany"
-          value={bootcampCompany}
-          onChange={onChangeHandler}
-          placeholder="부트캠프 회사를 입력하세요 "
-        />
-        <Input
-          required
-          name="totalWeeks"
-          value={totalWeeks}
-          onChange={onChangeHandler}
-          placeholder="부트캠프의 수강기간을 입력하세요"
-        />
-        <ThemeProvider
-          theme={{
-            palette: {
-              green: "#9BFFDA",
-              purple: "#FF9DFF",
-              red: "#FF4646",
-            },
-          }}
-        >
-          <BtnArea>
-            <p style={{ textAlign: "center" }}>온&오프라인 선택</p>
-            <Button
-              color="purple"
-              type="button"
-              id="onoff1"
-              value={currentClick}
-              onClick={GetClick}
-            >
-              온라인
-            </Button>
-            <Button
-              color="red"
-              type="button"
-              id="onoff2"
-              value={currentClick}
-              onClick={GetClick}
-            >
-              오프라인
-            </Button>
-          </BtnArea>
-        </ThemeProvider>
-        <Input
-          required
-          name="price"
-          value={price}
-          onChange={onChangeHandler}
-          placeholder="가격을 입력하세요"
-          maxLength="7"
-        />
-        <ThemeProvider
-          theme={{
-            palette: {
-              green: "#138c5f",
-              purple: "#FF9DFF",
-              red: "#FF4646",
-            },
-          }}
-        >
-          <BtnArea>
-            <p style={{ textAlign: "center" }}>스텍 선택</p>
-            <Button
-              color="purple"
-              type="button"
-              id="stack1"
-              value={currentClick1}
-              onClick={stackClick}
-            >
-              백엔드
-            </Button>
-            <Button
-              color="red"
-              type="button"
-              id="stack2"
-              value={currentClick1}
-              onClick={stackClick}
-            >
-              프론트엔드
-            </Button>
-            <Button
-              color="green"
-              type="button"
-              id="stack3"
-              value={currentClick1}
-              onClick={stackClick}
-            >
-              풀스택
-            </Button>
-          </BtnArea>
-
-          <p style={{ marginTop: "15px" }}>부트캠프에 대한 설명</p>
-          <Describe
+          <Input
+            required
+            name="bootcampName"
+            value={bootcampName}
+            ref={nameref}
             onChange={onChangeHandler}
-            name="describe"
-            value={describe}
-          ></Describe>
-        </ThemeProvider>
-        {/* <AlertBox>{alertBox}</AlertBox> */}
+            placeholder="부트캠프명을 입력하세요"
+          />
 
-        <ThemeProvider
-          theme={{
-            palette: {
-              green: "#0c6846",
-              purple: "#FF9DFF",
-              red: "#FF4646",
-            },
-          }}
-        >
-          <BtnArea>
-            <Button
-              color="green"
-              type="button"
-              onClick={onClick}
-              style={{ height: "40px", width: "300px", marginBottom: "10px" }}
-            >
-              <span
-                style={{
-                  width: "50rem",
-                  height: "3rem",
-                  fontSize: "20px",
-                }}
+          <Input
+            required
+            name="bootcampCompany"
+            value={bootcampCompany}
+            onChange={onChangeHandler}
+            placeholder="부트캠프 회사를 입력하세요 "
+          />
+          <Input
+            required
+            name="totalWeeks"
+            value={totalWeeks}
+            onChange={onChangeHandler}
+            placeholder="부트캠프의 수강기간을 입력하세요"
+          />
+          <ThemeProvider
+            theme={{
+              palette: {
+                green: "#9BFFDA",
+                purple: "#FF9DFF",
+                red: "#FF4646",
+              },
+            }}
+          >
+            <BtnArea>
+              <p style={{ textAlign: "center" }}>온&오프라인 선택</p>
+              <Button
+                color="purple"
+                type="button"
+                id="onoff1"
+                value={currentClick}
+                onClick={GetClick}
               >
-                {" "}
-                등록
-              </span>
-            </Button>
-          </BtnArea>
-        </ThemeProvider>
-      </Form>
-    </LoginBox>
+                온라인
+              </Button>
+              <Button
+                color="red"
+                type="button"
+                id="onoff2"
+                value={currentClick}
+                onClick={GetClick}
+              >
+                오프라인
+              </Button>
+            </BtnArea>
+          </ThemeProvider>
+          <Input
+            required
+            name="price"
+            value={price}
+            onChange={onChangeHandler}
+            placeholder="가격을 입력하세요"
+            maxLength="7"
+          />
+          <ThemeProvider
+            theme={{
+              palette: {
+                green: "#138c5f",
+                purple: "#FF9DFF",
+                red: "#FF4646",
+              },
+            }}
+          >
+            <BtnArea>
+              <p style={{ textAlign: "center" }}>스텍 선택</p>
+              <Button
+                color="purple"
+                type="button"
+                id="stack1"
+                value={currentClick1}
+                onClick={stackClick}
+              >
+                백엔드
+              </Button>
+              <Button
+                color="red"
+                type="button"
+                id="stack2"
+                value={currentClick1}
+                onClick={stackClick}
+              >
+                프론트엔드
+              </Button>
+              <Button
+                color="green"
+                type="button"
+                id="stack3"
+                value={currentClick1}
+                onClick={stackClick}
+              >
+                풀스택
+              </Button>
+            </BtnArea>
+
+            <p style={{ marginTop: "15px" }}>부트캠프에 대한 설명</p>
+            <Describe
+              onChange={onChangeHandler}
+              name="describe"
+              value={describe}
+            ></Describe>
+          </ThemeProvider>
+
+          <ThemeProvider
+            theme={{
+              palette: {
+                green: "#0c6846",
+                purple: "#FF9DFF",
+                red: "#FF4646",
+              },
+            }}
+          >
+            <BtnArea>
+              <Button
+                color="green"
+                type="button"
+                onClick={onClick}
+                style={{ height: "40px", width: "300px", marginBottom: "10px" }}
+              >
+                <span
+                  style={{
+                    width: "50rem",
+                    height: "3rem",
+                    fontSize: "20px",
+                  }}
+                >
+                  {" "}
+                  등록
+                </span>
+              </Button>
+            </BtnArea>
+          </ThemeProvider>
+        </Form>
+      </LoginBox>
+    </Layout>
   );
 };
 export default AddPage;
@@ -310,11 +277,10 @@ const LoginBox = styled.div`
   align-items: center;
   flex-direction: column;
   margin: auto;
-  width: 100%;
+  width: 70%;
   height: 100%;
-  border: 1px solid gainsboro;
 `;
-const Header = styled.h1`
+const Title = styled.h1`
   width: 40rem;
   height: 4rem;
   display: flex;

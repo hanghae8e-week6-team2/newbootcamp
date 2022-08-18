@@ -7,15 +7,27 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //!민지수정
 import EditPost from "../molecules/EditPost";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactModal from "react-modal";
+import { useSelector } from "react-redux";
+import { getDetail } from "../../redux/modules/JoinSlice";
 
 function ReviewContent({ data }) {
   //use 함수를 불러오려면 컴포넌트 첫글자가 대문자여야한다.
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  console.log(data.bootcampId);
-
+  const postData = useSelector((state) => state.joinSlice.getDetail.post);
+  console.log(postData);
+  const [idx, setidx] = useState("");
+  //postdata.useridx === userdata.useridx
+  // const userIdx = postData.userIdx;
+  //test.userIdx === idx
+  const userData = useSelector((state) => state.loginSlice.token);
+  const [test, setTest] = useState([]);
+  console.log(test);
+  console.log(userData);
+  console.log(postData);
+  console.log(userData);
   const bootId = data.bootcampId;
   const onDelete = (e) => {
     e.preventDefault();
@@ -23,13 +35,23 @@ function ReviewContent({ data }) {
     alert("삭제가 완료되었습니다.");
     navigate("/");
   };
-  console.log(data);
+
   ///!민지수정
   const [modal, setModal] = useState(false);
-
+  useEffect(() => {
+    setTest(...userData);
+    dispatch(getDetail(bootId));
+    if (postData !== undefined) {
+      setidx(postData.userIdx);
+    }
+  }, [idx]);
+  console.log(idx);
   return (
     <ReviewMain>
-      <button onClick={() => setModal(!modal)}>수정하기</button>
+      {/* {test.idx === idx ? ( */}
+      {/* <button onClick={() => setModal(!modal)}>수정하기</button> */}
+      {/* ) : null} */}
+
       <div>{modal ? <EditPost data={data} /> : null}</div>
       <ReviewTitle>
         <h1>부트캠프 소개</h1>
@@ -78,23 +100,12 @@ function ReviewContent({ data }) {
           }}
         >
           <BtnArea>
-            <Button
-              onClick={onDelete}
-              color="green"
-              type="button"
-              style={{ height: "40px", width: "300px", marginBottom: "10px" }}
-            >
-              <span
-                style={{
-                  width: "50rem",
-                  height: "3rem",
-                  fontSize: "20px",
-                }}
-              >
-                {" "}
-                삭제
-              </span>
-            </Button>
+            {/* {test.idx === idx ? ( */}
+            <button onClick={onDelete} type="button">
+              삭제
+            </button>
+            {/* ) : null} */}
+            <button onClick={() => setModal(!modal)}>수정하기</button>
           </BtnArea>
         </ThemeProvider>
       </ReviewBody>
@@ -108,17 +119,14 @@ const ReviewTitle = styled.div`
   display: inline-block;
 `;
 const ReviewBody = styled.div`
-  margin-left: 20px;
   width: 80%;
+  font-size: 20px;
 `;
-
 const ReviewMain = styled.div`
   width: 80%;
   height: 30%;
-
-  display: block;
   margin-left: auto;
-  margin-right: auto;
+  display: block;
 `;
 
 const BtnArea = styled.div`

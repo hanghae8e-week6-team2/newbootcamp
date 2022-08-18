@@ -10,8 +10,8 @@ import { getCookie, setCookie } from "../../api/cookie";
 export const getBoot = createAsyncThunk("GET_BOOT", async (bootcampId) => {
   console.log("함수안");
   try {
-      const response = await axios.get(`http://54.180.95.84/api/post`);
-      //const response = await axios.get(`http://localhost:8001/post`);
+    const response = await axios.get(`http://54.180.95.84/api/post`);
+    //const response = await axios.get(`http://localhost:8001/post`);
     console.log(response.data);
     return response.data.post;
   } catch (error) {
@@ -20,24 +20,22 @@ export const getBoot = createAsyncThunk("GET_BOOT", async (bootcampId) => {
   }
 });
 
- export const deleteBoot = createAsyncThunk("DELETE_BOOT", async (bootId)=>{
-  try{
-    const response = await axios
-    ({
+export const deleteBoot = createAsyncThunk("DELETE_BOOT", async (bootId) => {
+  try {
+    const response = await axios({
       method: "delete",
       url: `http://54.180.95.84/api/post/${bootId}`,
       headers: {
         authorization: `Bearer ${getCookie("is_login")}`,
       },
       // data:bootId
-
-      
-  });
-       // const response = await axios.delete(`http://localhost:8001/post/${bootId}`);
+    });
+    console.log(response);
+    // const response = await axios.delete(`http://localhost:8001/post/${bootId}`);
     return bootId;
- }catch(error){
+  } catch (error) {
     return error.message;
- }
+  }
 });
 
 export const detailSlice = createSlice({
@@ -46,6 +44,7 @@ export const detailSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getBoot.fulfilled]: (state, { payload }) => [...payload],
-    [deleteBoot.fulfilled]: (state, {payload})=> state.filter((list)=>list.bootcampId !== payload),
+    [deleteBoot.fulfilled]: (state, { payload }) =>
+      state.filter((list) => list.bootcampId !== payload),
   },
 });
